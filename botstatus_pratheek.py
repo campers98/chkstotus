@@ -15,10 +15,10 @@ app = Client(
     session_string = os.getenv("SESSION_STRING")
 )
 TIME_ZONE = os.getenv("TIME_ZONE")
-BOT_LIST = [i.strip() for i in os.getenv.get("BOT_LIST").split(' ')]
+BOT_LIST = [i.strip() for i in os.getenv("BOT_LIST").split(' ')]
 CHANNEL_OR_GROUP_ID = int(os.getenv("CHANNEL_OR_GROUP_ID"))
 MESSAGE_ID = int(os.getenv("MESSAGE_ID"))
-BOT_ADMIN_IDS = [int(i.strip()) for i in os.getenv.get("BOT_ADMIN_IDS").split(' ')]
+BOT_ADMIN_IDS = [int(i.strip()) for i in os.getenv("BOT_ADMIN_IDS").split(' ')]
 
 async def main_pratheek():
     async with app:
