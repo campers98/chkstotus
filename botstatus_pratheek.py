@@ -4,10 +4,13 @@ import asyncio
 import datetime
 import pytz
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = Client(
     name = "botstatus_pratheek",
-    api_id = int(os.getenv(API_ID)),
+    api_id = int(os.getenv("API_ID")),
     api_hash = os.getenv("API_HASH"),
     session_string = os.getenv("SESSION_STRING")
 )
