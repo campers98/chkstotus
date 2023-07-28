@@ -7,14 +7,14 @@ import os
 
 app = Client(
     name = "botstatus_pratheek",
-    api_id = int(os.getenv["API_ID"]),
-    api_hash = os.getenv["API_HASH"],
-    session_string = os.getenv["SESSION_STRING"]
+    api_id = int(os.getenv("API_ID")),
+    api_hash = os.getenv("API_HASH"),
+    session_string = os.getenv("SESSION_STRING")
 )
-TIME_ZONE = os.getenv["TIME_ZONE"]
+TIME_ZONE = os.getenv("TIME_ZONE")
 BOT_LIST = [i.strip() for i in os.getenv.get("BOT_LIST").split(' ')]
-CHANNEL_OR_GROUP_ID = int(os.getenv["CHANNEL_OR_GROUP_ID"])
-MESSAGE_ID = int(os.getenv["MESSAGE_ID"])
+CHANNEL_OR_GROUP_ID = int(os.getenv("CHANNEL_OR_GROUP_ID"))
+MESSAGE_ID = int(os.getenv("MESSAGE_ID"))
 BOT_ADMIN_IDS = [int(i.strip()) for i in os.getenv.get("BOT_ADMIN_IDS").split(' ')]
 
 async def main_pratheek():
