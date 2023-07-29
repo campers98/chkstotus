@@ -108,6 +108,7 @@ def save_bot_owners_and_logs_to_env():
     os.environ["BOT_OWNERS_AND_LOGS"] = bot_owners_and_logs_json
 
 async def main_pratheek():
+    global xxx_pratheek
     async with app:
             while True:
                 print("Checking...")                
