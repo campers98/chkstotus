@@ -37,7 +37,7 @@ async def main_pratheek():
                             bbb = ccc.id
                         if aaa == bbb:
                             xxx_pratheek += f"\n\n🤖  @{bot}\n        └ **Down** ❌"
-                            await app.send_message(LOG_ID, f"**[{ok.first_name}](tg://openmessage?user_id={ok.id}) off aagiduchii!! Seekiram on pannungaa**")
+                            await app.send_message(LOG_ID, f"**@{bot} off aagiduchii!! Seekiram on pannungaa**")
                             for bot_admin_id in BOT_ADMIN_IDS:
                                 try:
                                     await app.send_message(int(bot_admin_id), f"🚨 **Beep! Beep!! @{bot} is down** ❌")
