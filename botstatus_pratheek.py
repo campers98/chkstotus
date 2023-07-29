@@ -27,6 +27,7 @@ async def main_pratheek():
                 print("Checking...")
                 xxx_pratheek = f"📊 | 𝗟𝗜𝗩𝗘 𝗕𝗢𝗧 𝗦𝗧𝗔𝗧𝗨𝗦"
                 for bot in BOT_LIST:
+                    ok = await app.get_users(f"@{bots}")
                     try:
                         yyy_pratheek = await app.send_message(bot, "/start")
                         aaa = yyy_pratheek.id
