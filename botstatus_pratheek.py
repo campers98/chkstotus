@@ -30,6 +30,14 @@ BOT_OWNERS_AND_LOGS = {
     
 }
 
+# Global variable to hold the status message
+xxx_pratheek = ""
+
+# Function to update the status message and send it to the channel
+async def update_and_send_status_message():
+    global xxx_pratheek
+    xxx_pratheek = f"📊 | 𝗟𝗜𝗩𝗘 𝗕𝗢𝗧 𝗦𝗧𝗔𝗧𝗨𝗦"
+
 async def send_message_to_chat(chat_id, message):
     if chat_id:
         try:
@@ -58,6 +66,9 @@ async def add_bot_handler(client: Client, message: types.Message):
         # Save the updated dictionary to environment variables
         save_bot_owners_and_logs_to_env()
 
+        # Update the status message and send it to the channel
+        await update_and_send_status_message()
+
         # Reply with a success message
         await message.reply(f"Added {bot} with owner ID: {owner_id} and log group ID: {log_group_id}")
     except ValueError:
@@ -82,6 +93,9 @@ async def remove_bot_handler(client: Client, message: types.Message):
             # Save the updated dictionary to environment variables
             save_bot_owners_and_logs_to_env()
 
+            # Update the status message and send it to the channel
+            await update_and_send_status_message()
+
             await message.reply(f"Removed {bot} from the list.")
         else:
             await message.reply(f"The bot '{bot}' does not exist in the list.")
@@ -96,8 +110,7 @@ def save_bot_owners_and_logs_to_env():
 async def main_pratheek():
     async with app:
             while True:
-                print("Checking...")
-                xxx_pratheek = f"📊 | 𝗟𝗜𝗩𝗘 𝗕𝗢𝗧 𝗦𝗧𝗔𝗧𝗨𝗦"
+                print("Checking...")                
                 for bot in BOT_LIST:
                     ok = await app.get_users(f"@{bot}")
                     try:
@@ -140,7 +153,10 @@ async def main_pratheek():
                 last_update = time.strftime(f"%d %b %Y at %I:%M %p")
                 xxx_pratheek += f"\n\n✔️ Last checked on: {last_update} ({TIME_ZONE})\n\n**♻️ Refreshes automatically**"
                 await app.edit_message_text(int(CHANNEL_ID), MESSAGE_ID, xxx_pratheek)
-                print(f"Last checked on: {last_update}")                
+                print(f"Last checked on: {last_update}")   
+                # Call the update_and_send_status_message() function
+                await update_and_send_status_message()
+        
                 await asyncio.sleep(60)
                         
 app.run(main_pratheek())
