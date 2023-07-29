@@ -40,7 +40,7 @@ async def main_pratheek():
                             await app.send_message(LOG_ID, f"**@{bot} off aagiduchii!! Seekiram on pannungaa**")
                             for bot_admin_id in BOT_ADMIN_IDS:
                                 try:
-                                    await app.send_message({bot_admin_id}, f"🚨 **Beep! Beep!! @{bot} is down** ❌")
+                                    await app.send_message(int(bot_admin_id), f"🚨 **Beep! Beep!! @{bot} is down** ❌")
                                 except Exception as e:
                                     print(f"Failed to send message to {bot_admin_id}: {e}")
                             await app.read_chat_history(bot)
