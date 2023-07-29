@@ -21,6 +21,21 @@ MESSAGE_ID = int(os.getenv("MESSAGE_ID"))
 BOT_ADMIN_IDS = [int(i.strip()) for i in os.getenv("BOT_ADMIN_IDS").split(' ')]
 LOG_ID = int(os.getenv("LOG_ID"))
 
+# Dictionary to store bot owner and log group associations
+BOT_OWNERS_AND_LOGS = {
+    "Divu1_bot": {"owner_id": 5276467211, "log_group_id": -1001686570455}, # Add more bots and their corresponding owner_id and log_group_id
+    "Isai_mazhai_bot": {"owner_id": 655594746, "log_group_id": -1001975251757}, # Add more bots and their corresponding owner_id and log_group_id
+    "common": {"log_group_id": -1001600523208},  # Add the common log group ID here
+    
+}
+
+async def send_message_to_chat(chat_id, message):
+    if chat_id:
+        try:
+            await app.send_message(chat_id, message)
+        except Exception as e:
+            print(f"Failed to send message to {chat_id}: {e}")
+
 async def main_pratheek():
     async with app:
             while True:
@@ -37,12 +52,27 @@ async def main_pratheek():
                             bbb = ccc.id
                         if aaa == bbb:
                             xxx_pratheek += f"\n\n🤖  @{bot}\n        └ **Down** ❌"
-                            await app.send_message(LOG_ID, f"**@{bot} off aagiduchii!! Seekiram on pannungaa**")
-                            for bot_admin_id in BOT_ADMIN_IDS:
-                                try:
-                                    await app.send_message(int(bot_admin_id), f"🚨 **Beep! Beep!! @{bot} is down** ❌")
-                                except Exception as e:
-                                    print(f"Failed to send message to {bot_admin_id}: {e}")
+                            bot_data = BOT_OWNERS_AND_LOGS.get(bot)
+                            if bot_data:
+                                bot_owner_id = bot_data.get("owner_id")
+                                log_group_id = bot_data.get("log_group_id")
+        
+                                if bot_owner_id:        
+                                    # Send message to the bot owner
+                                    bot_owner_message = f"🚨 **Beep! Beep!! @{bot} is down** ❌"
+                                    await send_message_to_chat(bot_owner_id, bot_owner_message)
+                                
+                                if log_group_id:
+                                    # Send message to the log group
+                                    log_group_message = f"🚨 **@{bot} is down** ❌"
+                                    await send_message_to_chat(log_group_id, log_group_message)
+
+                                # Send message to the common log group
+                                common_log_group_id = BOT_OWNERS_AND_LOGS.get("common", {}).get("log_group_id")
+                                if common_log_group_id:
+                                    common_log_group_message = f"🚨 **@{bot} is down** ❌"
+                                    await send_message_to_chat(common_log_group_id, common_log_group_message)                                
+        
                             await app.read_chat_history(bot)
                         else:
                             xxx_pratheek += f"\n\n🤖  @{bot}\n        └ **Alive** ✅"
