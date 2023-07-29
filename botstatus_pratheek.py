@@ -53,7 +53,11 @@ async def add_bot_handler(client: Client, message: types.Message):
         return
 
     try:
-        # Split the command into its arguments (bot, owner_id, log_group_id)
+        # Split the command into its arguments (bot, owner_id, log_group_id)        
+        command_parts = message.text.split(" ")
+        if len(command_parts) != 4:
+            raise ValueError
+            
         _, bot, owner_id, log_group_id = message.text.split(" ")[1:]
 
         # Convert owner_id and log_group_id to integers
