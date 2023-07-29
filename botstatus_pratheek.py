@@ -5,6 +5,7 @@ import datetime
 import pytz
 import os
 from dotenv import load_dotenv
+import json
 
 load_dotenv()
 
@@ -35,6 +36,37 @@ async def send_message_to_chat(chat_id, message):
             await app.send_message(chat_id, message)
         except Exception as e:
             print(f"Failed to send message to {chat_id}: {e}")
+
+# Add a command handler to dynamically add bots and their owner IDs and log group IDs
+@app.on_message(filters.command("addbot") & filters.private)
+async def add_bot_handler(client: Client, message: types.Message):
+    if not message.from_user.id in BOT_ADMIN_IDS:
+        await message.reply("You are not authorized to add bots.")
+        return
+
+    try:
+        # Get the command arguments (bot, owner_id, log_group_id)
+        _, bot, owner_id, log_group_id = message.text.split(" ")
+
+        # Convert owner_id and log_group_id to integers
+        owner_id = int(owner_id)
+        log_group_id = int(log_group_id)
+
+        # Update the BOT_OWNERS_AND_LOGS dictionary
+        BOT_OWNERS_AND_LOGS[bot] = {"owner_id": owner_id, "log_group_id": log_group_id}
+
+        # Save the updated dictionary to environment variables
+        save_bot_owners_and_logs_to_env()
+
+        # Reply with a success message
+        await message.reply(f"Added {bot} with owner ID: {owner_id} and log group ID: {log_group_id}")
+    except ValueError:
+        await message.reply("Invalid input. Use /addbot <bot> <owner_id> <log_group_id> format.")
+
+# Helper function to save the updated BOT_OWNERS_AND_LOGS dictionary to environment variables
+def save_bot_owners_and_logs_to_env():
+    bot_owners_and_logs_json = json.dumps(BOT_OWNERS_AND_LOGS)
+    os.environ["BOT_OWNERS_AND_LOGS"] = bot_owners_and_logs_json
 
 async def main_pratheek():
     async with app:
