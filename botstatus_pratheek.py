@@ -41,8 +41,8 @@ async def main_pratheek():
                             for bot_admin_id in BOT_ADMIN_IDS:
                                 try:
                                     await app.send_message({bot_admin_id}, f"🚨 **Beep! Beep!! @{bot} is down** ❌")
-                                except Exception:
-                                    pass
+                                except Exception as e:
+                                    print(f"Failed to send message to {bot_admin_id}: {e}")
                             await app.read_chat_history(bot)
                         else:
                             xxx_pratheek += f"\n\n🤖  @{bot}\n        └ **Alive** ✅"
