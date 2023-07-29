@@ -62,6 +62,31 @@ async def add_bot_handler(client: Client, message: types.Message):
         await message.reply(f"Added {bot} with owner ID: {owner_id} and log group ID: {log_group_id}")
     except ValueError:
         await message.reply("Invalid input. Use /addbot <bot> <owner_id> <log_group_id> format.")
+        
+# Add command handler to remove bots from the list
+@app.on_message(filters.command("removebot") & filters.chat(LOG_ID) & filters.group)
+async def remove_bot_handler(client: Client, message: types.Message):
+    if not message.from_user.id in BOT_ADMIN_IDS:
+        await message.reply("You are not authorized to remove bots.")
+        return
+
+    try:
+        # Get the bot name to be removed
+        _, bot = message.text.split(" ")
+
+        # Check if the bot exists in the dictionary
+        if bot in BOT_OWNERS_AND_LOGS:
+            # Remove the bot from the dictionary
+            BOT_OWNERS_AND_LOGS.pop(bot)
+
+            # Save the updated dictionary to environment variables
+            save_bot_owners_and_logs_to_env()
+
+            await message.reply(f"Removed {bot} from the list.")
+        else:
+            await message.reply(f"The bot '{bot}' does not exist in the list.")
+    except ValueError:
+        await message.reply("Invalid input. Use /removebot <bot> format.")
 
 # Helper function to save the updated BOT_OWNERS_AND_LOGS dictionary to environment variables
 def save_bot_owners_and_logs_to_env():
