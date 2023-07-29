@@ -84,6 +84,6 @@ async def main_pratheek():
                 xxx_pratheek += f"\n\n✔️ Last checked on: {last_update} ({TIME_ZONE})\n\n**♻️ Refreshes automatically**"
                 await app.edit_message_text(int(CHANNEL_ID), MESSAGE_ID, xxx_pratheek)
                 print(f"Last checked on: {last_update}")                
-                await asyncio.sleep(60)
+                await asyncio.sleep(6300)
                         
 app.run(main_pratheek())
