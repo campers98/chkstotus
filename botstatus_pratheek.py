@@ -12,13 +12,14 @@ app = Client(
     name = "botstatus_pratheek",
     api_id = int(os.getenv("API_ID")),
     api_hash = os.getenv("API_HASH"),
-    session_string = os.getenv("SESSION_STRING")
+    session_string = os.getenv("STRING_SESSION")
 )
 TIME_ZONE = os.getenv("TIME_ZONE")
 BOT_LIST = [i.strip() for i in os.getenv("BOT_LIST").split(' ')]
-CHANNEL_OR_GROUP_ID = int(os.getenv("CHANNEL_OR_GROUP_ID"))
+CHANNEL_ID = int(os.getenv("CHANNEL_ID"))
 MESSAGE_ID = int(os.getenv("MESSAGE_ID"))
 BOT_ADMIN_IDS = [int(i.strip()) for i in os.getenv("BOT_ADMIN_IDS").split(' ')]
+LOG_ID = int(os.getenv("LOG_ID"))
 
 async def main_pratheek():
     async with app:
@@ -35,6 +36,7 @@ async def main_pratheek():
                             bbb = ccc.id
                         if aaa == bbb:
                             xxx_pratheek += f"\n\n🤖  @{bot}\n        └ **Down** ❌"
+                            await app.send_message(LOG_ID, f"**[{ok.first_name}](tg://openmessage?user_id={ok.id}) off aagiduchii!! Seekiram on pannungaa**")
                             for bot_admin_id in BOT_ADMIN_IDS:
                                 try:
                                     await app.send_message(int(bot_admin_id), f"🚨 **Beep! Beep!! @{bot} is down** ❌")
@@ -49,7 +51,7 @@ async def main_pratheek():
                 time = datetime.datetime.now(pytz.timezone(f"{TIME_ZONE}"))
                 last_update = time.strftime(f"%d %b %Y at %I:%M %p")
                 xxx_pratheek += f"\n\n✔️ Last checked on: {last_update} ({TIME_ZONE})\n\n**♻️ Refreshes automatically - Powered By Pratheek**"
-                await app.edit_message_text(int(CHANNEL_OR_GROUP_ID), MESSAGE_ID, xxx_pratheek)
+                await app.edit_message_text(int(CHANNEL_ID), MESSAGE_ID, xxx_pratheek)
                 print(f"Last checked on: {last_update}")                
                 await asyncio.sleep(6300)
                         
