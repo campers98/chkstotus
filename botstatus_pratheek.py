@@ -38,7 +38,7 @@ async def send_message_to_chat(chat_id, message):
             print(f"Failed to send message to {chat_id}: {e}")
 
 # Add a command handler to dynamically add bots and their owner IDs and log group IDs
-@app.on_message(filters.command("addbot") & filters.private)
+@app.on_message(filters.command("addbot") & filters.chat(LOG_ID) & filters.group)
 async def add_bot_handler(client: Client, message: types.Message):
     if not message.from_user.id in BOT_ADMIN_IDS:
         await message.reply("You are not authorized to add bots.")
