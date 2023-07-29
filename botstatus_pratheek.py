@@ -76,7 +76,7 @@ async def main_pratheek():
                 for bot in BOT_LIST:
                     ok = await app.get_users(f"@{bot}")
                     try:
-                        yyy_pratheek = await app.send_message(bot, "/start")
+                        yyy_pratheek = await app.send_message(bot, "/help")
                         aaa = yyy_pratheek.id
                         await asyncio.sleep(2)
                         zzz_pratheek = app.get_chat_history(bot, limit = 1)
