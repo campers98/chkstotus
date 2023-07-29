@@ -162,6 +162,6 @@ async def main_pratheek():
                 # Call the update_and_send_status_message() function
                 await update_and_send_status_message()
         
-                await asyncio.sleep(60)
+                await asyncio.sleep(7200)
                         
 app.run(main_pratheek())
