@@ -87,6 +87,7 @@ async def send_message_to_chat(chat_id, message):
 # Add a command handler to dynamically add bots and their owner IDs and log group IDs
 @app.on_message(filters.command("addbot") & filters.chat(LOG_ID) & filters.group)
 async def add_bot_handler(client: Client, message: types.Message):
+    print("add_bot_handler called!")  # Add this line to check if the function is called
     global xxx_pratheek  # Define the global variable
     
     if not message.from_user.id in BOT_ADMIN_IDS:
@@ -122,6 +123,7 @@ async def add_bot_handler(client: Client, message: types.Message):
         await message.reply(f"Added {bot} with owner ID: {owner_id} and log group ID: {log_group_id}")
     except ValueError:
         await message.reply("Invalid input. Use /addbot <bot> <owner_id> <log_group_id> format.")
+    print("xxx_pratheek after adding the bot:", xxx_pratheek)
         
 # Add command handler to remove bots from the list
 @app.on_message(filters.command("removebot") & filters.chat(LOG_ID) & filters.group)
@@ -160,7 +162,8 @@ async def main_pratheek():
     global xxx_pratheek
     async with app:
         while True:
-            print("Checking...")                
+            print("Checking...")
+            await update_and_send_status_message()  # Call the function directly
             for bot in BOT_LIST:
                 try:
                     ok = await app.get_users(f"@{bot}")
@@ -179,8 +182,7 @@ async def main_pratheek():
             await app.edit_message_text(int(CHANNEL_ID), MESSAGE_ID, xxx_pratheek)
             print(f"Last checked on: {last_update}")   
             # Call the update_and_send_status_message() function
-            await update_and_send_status_message()
-        
+            await update_and_send_status_message()        
             await asyncio.sleep(60)
                         
 app.run(main_pratheek())
