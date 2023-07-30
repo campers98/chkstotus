@@ -182,11 +182,11 @@ async def main_pratheek():
                     ok = await app.get_users(bot)
                     # Send the /help message to the bot at regular intervals
                     await send_help_message(bot)
-                    zzz_pratheek = app.get_chat_history(bot, limit=1)
-                    async for ccc in zzz_pratheek:
-                        bbb = ccc.id
-                    if ccc.outgoing and ccc.text == "/help":
-                        xxx_pratheek += f"\n\n🤖  @{bot}\n        └ **Alive** ✅"
+                    chat_history = app.get_chat_history(bot, limit=1)
+                    async for message in chat_history:
+                        if message.from_user.id == ok.id and message.text == "/help":
+                            xxx_pratheek += f"\n\n🤖  @{bot}\n        └ **Alive** ✅"
+                            break
                     else:
                         xxx_pratheek += f"\n\n🤖  @{bot}\n        └ **Down** ❌"
                 except FloodWait as e:
