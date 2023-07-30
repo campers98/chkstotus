@@ -88,14 +88,28 @@ async def add_bot_handler(client: Client, message: types.Message):
         # Save the updated dictionary to environment variables
         save_bot_owners_and_logs_to_env()
 
+        # Send the /help command to the bot
+        await app.send_message(bot, "/help")
+
+        await asyncio.sleep(2)
+
+        # Get the latest message from the bot chat history
+        bot_response = None
+        async for message in app.iter_history(bot, limit=1):
+            if message.outgoing and message.text == "/help":
+                bot_response = message
+                break
+
+        if bot_response is not None:
+            xxx_pratheek += f"\n\n🤖  @{bot}\n        └ **Alive** ✅"
+        else:
+            xxx_pratheek += f"\n\n🤖  @{bot}\n        └ **Down** ❌"
+
         # Update the status message and send it to the channel
         await update_and_send_status_message()
 
         # Reply with a success message
         await message.reply(f"Added {bot} with owner ID: {owner_id} and log group ID: {log_group_id}")
-
-        # Call the main_pratheek() function again to restart the main loop
-        await main_pratheek()
     except ValueError:
         await message.reply("Invalid input. Use /addbot <bot> <owner_id> <log_group_id> format.")
         
