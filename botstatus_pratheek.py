@@ -97,6 +97,9 @@ async def add_bot_handler(client: Client, message: types.Message):
 
         # Reply with a success message
         await message.reply(f"Added {bot} with owner ID: {owner_id} and log group ID: {log_group_id}")
+
+        # Call the main_pratheek() function again to restart the main loop
+        await main_pratheek()
     except ValueError:
         await message.reply("Invalid input. Use /addbot <bot> <owner_id> <log_group_id> format.")
         
