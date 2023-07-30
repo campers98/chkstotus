@@ -163,7 +163,7 @@ async def main_pratheek():
             print("Checking...")
             
             # Call the update_and_send_status_message() function to update xxx_pratheek with initial status
-            await update_and_send_status_message()
+            #await update_and_send_status_message()
 
             # Loop through BOT_LIST to check the status of each bot
             for bot in BOT_OWNERS_AND_LOGS:
