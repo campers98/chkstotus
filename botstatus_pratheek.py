@@ -40,25 +40,32 @@ async def update_and_send_status_message():
 
     for bot in BOT_LIST:
         try:
-            ok = await app.get_users(f"@{bot}")
-            yyy_pratheek = await app.send_message(bot, "/help")
-            aaa = yyy_pratheek.id
-            await asyncio.sleep(2)
-            async for ccc in app.get_chat_history(bot, limit=1):
-                bbb = ccc.id
-            if aaa == bbb:
-                xxx_pratheek += f"\n\n🤖  @{bot}\n        └ **Down** ❌"
-            else:
+            # Check if the bot is alive by getting its chat info
+            bot_info = await app.get_chat(bot)
+
+            if bot_info.is_bot and bot_info.status == "online":
                 xxx_pratheek += f"\n\n🤖  @{bot}\n        └ **Alive** ✅"
-        except FloodWait as e:
-            await asyncio.sleep(e.x)
+            else:
+                xxx_pratheek += f"\n\n🤖  @{bot}\n        └ **Down** ❌"
+        except Exception as e:
+            # Log any errors for debugging purposes
+            print(f"Error checking bot status for {bot}: {e}")
 
     time = datetime.datetime.now(pytz.timezone(f"{TIME_ZONE}"))
     last_update = time.strftime(f"%d %b %Y at %I:%M %p")
     xxx_pratheek += f"\n\n✔️ Last checked on: {last_update} ({TIME_ZONE})\n\n**♻️ Refreshes automatically**"
 
-    await app.edit_message_text(int(CHANNEL_ID), MESSAGE_ID, xxx_pratheek)
-    print(f"Last checked on: {last_update}")
+    try:
+        # Convert CHANNEL_ID and MESSAGE_ID to integers if provided as strings
+        channel_id_int = int(CHANNEL_ID)
+        message_id_int = int(MESSAGE_ID)
+        
+        # Update the status message in the channel
+        await app.edit_message_text(channel_id_int, message_id_int, xxx_pratheek)
+        print(f"Last checked on: {last_update}")
+    except Exception as e:
+        # Log any errors for debugging purposes
+        print(f"Error updating status message: {e}")
 
 async def send_message_to_chat(chat_id, message):
     if chat_id:
@@ -68,7 +75,6 @@ async def send_message_to_chat(chat_id, message):
             print(f"Failed to send message to {chat_id}: {e}")
 
 # Add a command handler to dynamically add bots and their owner IDs and log group IDs
-@app.on_message(filters.command("addbot") & filters.chat(LOG_ID) & filters.group)
 @app.on_message(filters.command("addbot") & filters.chat(LOG_ID) & filters.group)
 async def add_bot_handler(client: Client, message: types.Message):
     global xxx_pratheek  # Define the global variable
@@ -96,7 +102,8 @@ async def add_bot_handler(client: Client, message: types.Message):
         # Save the updated dictionary to environment variables
         save_bot_owners_and_logs_to_env()
 
-        xxx_pratheek += f"\n\n🤖  @{bot}\n        └ **Down** ❌"  # Update status message for the newly added bot
+        # Update the status message with the newly added bot
+        xxx_pratheek += f"\n\n🤖  @{bot}\n        └ **Down** ❌"  # Assume the bot is down initially
 
         # Update the status message and send it to the channel
         await update_and_send_status_message()
