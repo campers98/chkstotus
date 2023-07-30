@@ -25,7 +25,7 @@ LOG_ID = int(os.getenv("LOG_ID"))
 # Dictionary to store bot owner and log group associations
 BOT_OWNERS_AND_LOGS = {
     #"Divu1_bot": {"owner_id": 5276467211, "log_group_id": -1001686570455}, # Add more bots and their corresponding owner_id and log_group_id
-    "Isai_mazhai_bot": {"owner_id": 655594746, "log_group_id": -1001975251757}, # Add more bots and their corresponding owner_id and log_group_id
+    #"Isai_mazhai_bot": {"owner_id": 655594746, "log_group_id": -1001975251757}, # Add more bots and their corresponding owner_id and log_group_id
     #"common": {"log_group_id": -1001600523208},  # Add the common log group ID here    
 }
 
