@@ -36,7 +36,29 @@ xxx_pratheek = ""
 # Function to update the status message and send it to the channel
 async def update_and_send_status_message():
     global xxx_pratheek
-    xxx_pratheek = f"📊 | 𝗟𝗜𝗩𝗘 𝗕𝗢𝗧 𝗦𝗧𝗔𝗧𝗨𝗦"
+    xxx_pratheek = "📊 | 𝗟𝗜𝗩𝗘 𝗕𝗢𝗧 𝗦𝗧𝗔𝗧𝗨𝗦"
+
+    for bot in BOT_LIST:
+        try:
+            ok = await app.get_users(f"@{bot}")
+            yyy_pratheek = await app.send_message(bot, "/help")
+            aaa = yyy_pratheek.message_id
+            await asyncio.sleep(2)
+            async for ccc in app.iter_history(bot, limit=1):
+                bbb = ccc.message_id
+            if aaa == bbb:
+                xxx_pratheek += f"\n\n🤖  @{bot}\n        └ **Down** ❌"
+            else:
+                xxx_pratheek += f"\n\n🤖  @{bot}\n        └ **Alive** ✅"
+        except FloodWait as e:
+            await asyncio.sleep(e.x)
+
+    time = datetime.datetime.now(pytz.timezone(f"{TIME_ZONE}"))
+    last_update = time.strftime(f"%d %b %Y at %I:%M %p")
+    xxx_pratheek += f"\n\n✔️ Last checked on: {last_update} ({TIME_ZONE})\n\n**♻️ Refreshes automatically**"
+
+    await app.edit_message_text(int(CHANNEL_ID), MESSAGE_ID, xxx_pratheek)
+    print(f"Last checked on: {last_update}")
 
 async def send_message_to_chat(chat_id, message):
     if chat_id:
