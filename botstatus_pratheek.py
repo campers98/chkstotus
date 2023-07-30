@@ -76,10 +76,6 @@ async def add_bot_handler(client: Client, message: types.Message):
 
     try:
         # Split the command into its arguments (bot, owner_id, log_group_id)        
-        command_parts = message.text.split(" ")
-        if len(command_parts) != 4:
-            raise ValueError
-            
         _, bot, owner_id, log_group_id = message.text.split(" ", 3)
 
         # Convert owner_id and log_group_id to integers
@@ -92,14 +88,28 @@ async def add_bot_handler(client: Client, message: types.Message):
         # Save the updated dictionary to environment variables
         save_bot_owners_and_logs_to_env()
 
+        # Send the /help command to the bot and get the sent message object
+        yyy_pratheek = await app.send_message(bot, "/help")
+
+        # Get the message ID of the sent message
+        aaa = yyy_pratheek.message_id
+
+        await asyncio.sleep(2)
+
+        # Get the latest message from the bot chat history
+        async for ccc in app.iter_history(bot, limit=1):
+            bbb = ccc.message_id
+
+        if aaa == bbb:
+            xxx_pratheek += f"\n\n🤖  @{bot}\n        └ **Down** ❌"
+        else:
+            xxx_pratheek += f"\n\n🤖  @{bot}\n        └ **Alive** ✅"
+
         # Update the status message and send it to the channel
         await update_and_send_status_message()
 
         # Reply with a success message
         await message.reply(f"Added {bot} with owner ID: {owner_id} and log group ID: {log_group_id}")
-
-        # Call the main_pratheek() function again to restart the main loop
-        await main_pratheek()
     except ValueError:
         await message.reply("Invalid input. Use /addbot <bot> <owner_id> <log_group_id> format.")
         
