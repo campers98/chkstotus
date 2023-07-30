@@ -40,13 +40,23 @@ async def update_and_send_status_message():
 
     for bot in BOT_LIST:
         try:
-            # Check if the bot is alive by getting its chat info
-            bot_info = await app.get_chat(bot)
+            # Send the /help command to the bot
+            yyy_pratheek = await app.send_message(bot, "/help")
+            aaa = yyy_pratheek.id
+            
+            # Wait for a short time to allow the bot to respond
+            await asyncio.sleep(2)
+            
+            async for ccc in app.get_chat_history(bot, limit=1):
+                bbb = ccc.id
 
-            if bot_info.is_bot and bot_info.status == "online":
-                xxx_pratheek += f"\n\n🤖  @{bot}\n        └ **Alive** ✅"
-            else:
+            if aaa == bbb:
                 xxx_pratheek += f"\n\n🤖  @{bot}\n        └ **Down** ❌"
+            else:
+                xxx_pratheek += f"\n\n🤖  @{bot}\n        └ **Alive** ✅"
+        except FloodWait as e:
+            # Sleep based on the recommended delay from the FloodWait exception
+            await asyncio.sleep(e.x)
         except Exception as e:
             # Log any errors for debugging purposes
             print(f"Error checking bot status for {bot}: {e}")
