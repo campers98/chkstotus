@@ -111,10 +111,7 @@ async def add_bot_handler(client: Client, message: types.Message):
 
         # Save the updated dictionary to environment variables
         save_bot_owners_and_logs_to_env()
-
-        # Update the status message with the newly added bot
-        xxx_pratheek += f"\n\n🤖  @{bot}\n        └ **Down** ❌"  # Assume the bot is down initially
-
+        
         # Update the status message and send it to the channel
         await update_and_send_status_message()
 
