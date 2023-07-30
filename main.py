@@ -157,7 +157,15 @@ def save_bot_owners_and_logs_to_env():
     bot_owners_and_logs_json = json.dumps(BOT_OWNERS_AND_LOGS)
     os.environ["BOT_OWNERS_AND_LOGS"] = bot_owners_and_logs_json
 
-# ... (Rest of the code remains the same) ...
+async def send_help_message(bot):
+    try:
+        # Send the /help command to the bot
+        await app.send_message(bot, "/help")
+        # Wait for a short time to allow the bot to respond
+        await asyncio.sleep(2)
+    except Exception as e:
+        # Log any errors for debugging purposes
+        print(f"Error sending /help command to {bot}: {e}")
 
 async def main_pratheek():
     global xxx_pratheek
@@ -172,6 +180,8 @@ async def main_pratheek():
             for bot, info in BOT_OWNERS_AND_LOGS.items():
                 try:
                     ok = await app.get_users(bot)
+                    # Send the /help message to the bot at regular intervals
+                    await send_help_message(bot)
                     zzz_pratheek = app.get_chat_history(bot, limit=1)
                     async for ccc in zzz_pratheek:
                         bbb = ccc.id
