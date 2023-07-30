@@ -88,22 +88,17 @@ async def add_bot_handler(client: Client, message: types.Message):
         # Save the updated dictionary to environment variables
         save_bot_owners_and_logs_to_env()
 
-        # Send the /help command to the bot and get the sent message object
-        yyy_pratheek = await app.send_message(bot, "/help")
-
-        # Get the message ID of the sent message
-        aaa = yyy_pratheek.message_id
+        # Send the /help command to the bot
+        await app.send_message(bot, "/help")
 
         await asyncio.sleep(2)
 
         # Get the latest message from the bot chat history
-        async for ccc in app.iter_history(bot, limit=1):
-            bbb = ccc.message_id
-
-        if aaa == bbb:
-            xxx_pratheek += f"\n\n🤖  @{bot}\n        └ **Down** ❌"
-        else:
-            xxx_pratheek += f"\n\n🤖  @{bot}\n        └ **Alive** ✅"
+        async for message in app.iter_history(bot, limit=1):
+            if message.outgoing and message.text == "/help":
+                xxx_pratheek += f"\n\n🤖  @{bot}\n        └ **Alive** ✅"
+            else:
+                xxx_pratheek += f"\n\n🤖  @{bot}\n        └ **Down** ❌"
 
         # Update the status message and send it to the channel
         await update_and_send_status_message()
