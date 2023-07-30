@@ -69,6 +69,7 @@ async def send_message_to_chat(chat_id, message):
 
 # Add a command handler to dynamically add bots and their owner IDs and log group IDs
 @app.on_message(filters.command("addbot") & filters.chat(LOG_ID) & filters.group)
+@app.on_message(filters.command("addbot") & filters.chat(LOG_ID) & filters.group)
 async def add_bot_handler(client: Client, message: types.Message):
     global xxx_pratheek  # Define the global variable
     
@@ -103,8 +104,7 @@ async def add_bot_handler(client: Client, message: types.Message):
         # Reply with a success message
         await message.reply(f"Added {bot} with owner ID: {owner_id} and log group ID: {log_group_id}")
     except ValueError:
-        await message.reply("Invalid input. Use /addbot [bot] [owner_id] [log_group_id] format.")
-
+        await message.reply("Invalid input. Use /addbot <bot> <owner_id> <log_group_id> format.")
         
 # Add command handler to remove bots from the list
 @app.on_message(filters.command("removebot") & filters.chat(LOG_ID) & filters.group)
@@ -142,54 +142,28 @@ def save_bot_owners_and_logs_to_env():
 async def main_pratheek():
     global xxx_pratheek
     async with app:
-            while True:
-                print("Checking...")                
-                for bot in BOT_LIST:
+        while True:
+            print("Checking...")                
+            for bot in BOT_LIST:
+                try:
                     ok = await app.get_users(f"@{bot}")
-                    try:
-                        yyy_pratheek = await app.send_message(bot, "/help")
-                        aaa = yyy_pratheek.id
-                        await asyncio.sleep(2)
-                        zzz_pratheek = app.get_chat_history(bot, limit = 1)
-                        async for ccc in zzz_pratheek:
-                            bbb = ccc.id
-                        if aaa == bbb:
-                            xxx_pratheek += f"\n\n🤖  @{bot}\n        └ **Down** ❌"
-                            bot_data = BOT_OWNERS_AND_LOGS.get(bot)
-                            if bot_data:
-                                bot_owner_id = bot_data.get("owner_id")
-                                log_group_id = bot_data.get("log_group_id")
+                    zzz_pratheek = app.get_chat_history(bot, limit=1)
+                    async for ccc in zzz_pratheek:
+                        bbb = ccc.id
+                    if ccc.outgoing and ccc.text == "/help":
+                        xxx_pratheek += f"\n\n🤖  @{bot}\n        └ **Alive** ✅"
+                    else:
+                        xxx_pratheek += f"\n\n🤖  @{bot}\n        └ **Down** ❌"
+                except FloodWait as e:
+                    await asyncio.sleep(e.x)            
+            time = datetime.datetime.now(pytz.timezone(f"{TIME_ZONE}"))
+            last_update = time.strftime(f"%d %b %Y at %I:%M %p")
+            xxx_pratheek += f"\n\n✔️ Last checked on: {last_update} ({TIME_ZONE})\n\n**♻️ Refreshes automatically**"
+            await app.edit_message_text(int(CHANNEL_ID), MESSAGE_ID, xxx_pratheek)
+            print(f"Last checked on: {last_update}")   
+            # Call the update_and_send_status_message() function
+            await update_and_send_status_message()
         
-                                if bot_owner_id:        
-                                    # Send message to the bot owner
-                                    bot_owner_message = f"🚨 **Beep! Beep!! @{bot} is down** ❌"
-                                    await send_message_to_chat(bot_owner_id, bot_owner_message)
-                                
-                                if log_group_id:
-                                    # Send message to the log group
-                                    log_group_message = f"🚨 **@{bot} is down** ❌"
-                                    await send_message_to_chat(log_group_id, log_group_message)
-
-                                # Send message to the common log group
-                                common_log_group_id = BOT_OWNERS_AND_LOGS.get("common", {}).get("log_group_id")
-                                if common_log_group_id:
-                                    common_log_group_message = f"🚨 **@{bot} is down** ❌"
-                                    await send_message_to_chat(common_log_group_id, common_log_group_message)                                
-        
-                            await app.read_chat_history(bot)
-                        else:
-                            xxx_pratheek += f"\n\n🤖  @{bot}\n        └ **Alive** ✅"
-                            await app.read_chat_history(bot)
-                    except FloodWait as e:
-                        await asyncio.sleep(e.x)            
-                time = datetime.datetime.now(pytz.timezone(f"{TIME_ZONE}"))
-                last_update = time.strftime(f"%d %b %Y at %I:%M %p")
-                xxx_pratheek += f"\n\n✔️ Last checked on: {last_update} ({TIME_ZONE})\n\n**♻️ Refreshes automatically**"
-                await app.edit_message_text(int(CHANNEL_ID), MESSAGE_ID, xxx_pratheek)
-                print(f"Last checked on: {last_update}")   
-                # Call the update_and_send_status_message() function
-                await update_and_send_status_message()
-        
-                await asyncio.sleep(60)
+            await asyncio.sleep(60)
                         
 app.run(main_pratheek())
