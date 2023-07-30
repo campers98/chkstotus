@@ -80,6 +80,11 @@ async def add_bot_handler(client: Client, message: types.Message):
         # Split the command into its arguments (bot, owner_id, log_group_id)        
         _, bot, owner_id, log_group_id = message.text.split(" ", 3)
 
+        # Check if the bot already exists in the dictionary
+        if bot in BOT_OWNERS_AND_LOGS:
+            await message.reply(f"The bot '{bot}' already exists in the list.")
+            return
+            
         # Convert owner_id and log_group_id to integers
         owner_id = int(owner_id)
         log_group_id = int(log_group_id)
