@@ -157,16 +157,6 @@ def save_bot_owners_and_logs_to_env():
     bot_owners_and_logs_json = json.dumps(BOT_OWNERS_AND_LOGS)
     os.environ["BOT_OWNERS_AND_LOGS"] = bot_owners_and_logs_json
 
-async def send_help_message(bot):
-    try:
-        # Send the /help command to the bot
-        await app.send_message(bot, "/help")
-        # Wait for a short time to allow the bot to respond
-        await asyncio.sleep(2)
-    except Exception as e:
-        # Log any errors for debugging purposes
-        print(f"Error sending /help command to {bot}: {e}")
-
 async def main_pratheek():
     global xxx_pratheek
     async with app:
