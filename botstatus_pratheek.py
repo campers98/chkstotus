@@ -183,6 +183,6 @@ async def main_pratheek():
             print(f"Last checked on: {last_update}")   
             # Call the update_and_send_status_message() function
             await update_and_send_status_message()        
-            await asyncio.sleep(60)
+            await asyncio.sleep(180)
                         
 app.run(main_pratheek())
