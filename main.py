@@ -180,19 +180,19 @@ async def main_pratheek():
             for bot, info in BOT_OWNERS_AND_LOGS.items():
                 try:
                     yyy_pratheek = await app.send_message(bot, "/help")
-                        aaa = yyy_pratheek.id
-                        await asyncio.sleep(2)
-                        zzz_pratheek = app.get_chat_history(bot, limit = 1)
-                        async for ccc in zzz_pratheek:
-                            bbb = ccc.id
-                        if aaa == bbb:
-                            xxx_pratheek += f"\n\n🤖  @{bot}\n        └ **Down** ❌"                            
-                            await app.read_chat_history(bot)
-                        else:
-                            xxx_pratheek += f"\n\n🤖  @{bot}\n        └ **Alive** ✅"
-                            await app.read_chat_history(bot)
+                    aaa = yyy_pratheek.id
+                    await asyncio.sleep(2)
+                    zzz_pratheek = app.get_chat_history(bot, limit = 1)
+                    async for ccc in zzz_pratheek:
+                        bbb = ccc.id
+                    if aaa == bbb:
+                         xxx_pratheek += f"\n\n🤖  @{bot}\n        └ **Down** ❌"                            
+                         await app.read_chat_history(bot)
+                    else:
+                        xxx_pratheek += f"\n\n🤖  @{bot}\n        └ **Alive** ✅"
+                        await app.read_chat_history(bot)
                 except FloodWait as e:
-                        await asyncio.sleep(e.x)            
+                    await asyncio.sleep(e.x)            
             
             # Update the status message with the latest bot statuses
             time = datetime.datetime.now(pytz.timezone(f"{TIME_ZONE}"))
