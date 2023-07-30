@@ -70,6 +70,8 @@ async def send_message_to_chat(chat_id, message):
 # Add a command handler to dynamically add bots and their owner IDs and log group IDs
 @app.on_message(filters.command("addbot") & filters.chat(LOG_ID) & filters.group)
 async def add_bot_handler(client: Client, message: types.Message):
+    global xxx_pratheek  # Define the global variable
+    
     if not message.from_user.id in BOT_ADMIN_IDS:
         await message.reply("You are not authorized to add bots.")
         return
