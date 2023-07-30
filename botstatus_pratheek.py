@@ -186,6 +186,6 @@ async def main_pratheek():
             await app.edit_message_text(int(CHANNEL_ID), MESSAGE_ID, xxx_pratheek)
             print(f"Last checked on: {last_update}")
 
-            await asyncio.sleep(180)
+            await asyncio.sleep(60)
                         
 app.run(main_pratheek())
