@@ -44,7 +44,7 @@ async def update_and_send_status_message():
             yyy_pratheek = await app.send_message(bot, "/help")
             aaa = yyy_pratheek.id
             await asyncio.sleep(2)
-            async for ccc in app.iter_history(bot, limit=1):
+            async for ccc in app.get_chat_history(bot, limit=1):
                 bbb = ccc.message_id
             if aaa == bbb:
                 xxx_pratheek += f"\n\n🤖  @{bot}\n        └ **Down** ❌"
