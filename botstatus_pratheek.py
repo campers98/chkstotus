@@ -95,9 +95,9 @@ async def add_bot_handler(client: Client, message: types.Message):
 
         # Get the latest message from the bot chat history
         bot_response = None
-        async for message in app.iter_history(bot, limit=1):
-            if message.outgoing and message.text == "/help":
-                bot_response = message
+        async for ccc in app.get_chat_history(bot, limit=1):
+            if ccc.outgoing and ccc.text == "/help":
+                bot_response = ccc
                 break
 
         if bot_response is not None:
@@ -112,6 +112,7 @@ async def add_bot_handler(client: Client, message: types.Message):
         await message.reply(f"Added {bot} with owner ID: {owner_id} and log group ID: {log_group_id}")
     except ValueError:
         await message.reply("Invalid input. Use /addbot <bot> <owner_id> <log_group_id> format.")
+
         
 # Add command handler to remove bots from the list
 @app.on_message(filters.command("removebot") & filters.chat(LOG_ID) & filters.group)
