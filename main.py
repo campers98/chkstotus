@@ -185,7 +185,7 @@ async def main_pratheek():
             # Update the status message with the latest bot statuses
             time = datetime.datetime.now(pytz.timezone(f"{TIME_ZONE}"))
             last_update = time.strftime(f"%d %b %Y at %I:%M %p")
-            xxx_pratheek += f"\n\n✔️ Last checked on: {last_update} ({TIME_ZONE})\n\n**♻️ Refreshes automatically**"
+            #xxx_pratheek += f"\n\n✔️ Last checked on: {last_update} ({TIME_ZONE})\n\n**♻️ Refreshes automatically**"
             await app.edit_message_text(int(CHANNEL_ID), MESSAGE_ID, xxx_pratheek)
             print(f"Last checked on: {last_update}")
 
