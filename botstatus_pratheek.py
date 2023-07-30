@@ -95,22 +95,7 @@ async def add_bot_handler(client: Client, message: types.Message):
         # Save the updated dictionary to environment variables
         save_bot_owners_and_logs_to_env()
 
-        # Send the /help command to the bot
-        await app.send_message(bot, "/help")
-
-        await asyncio.sleep(2)
-
-        # Get the latest message from the bot chat history
-        bot_response = None
-        async for ccc in app.get_chat_history(bot, limit=1):
-            if ccc.outgoing and ccc.text == "/help":
-                bot_response = ccc
-                break
-
-        if bot_response is not None:
-            xxx_pratheek += f"\n\n🤖  @{bot}\n        └ **Alive** ✅"
-        else:
-            xxx_pratheek += f"\n\n🤖  @{bot}\n        └ **Down** ❌"
+        xxx_pratheek += f"\n\n🤖  @{bot}\n        └ **Down** ❌"  # Update status message for the newly added bot
 
         # Update the status message and send it to the channel
         await update_and_send_status_message()
@@ -118,7 +103,7 @@ async def add_bot_handler(client: Client, message: types.Message):
         # Reply with a success message
         await message.reply(f"Added {bot} with owner ID: {owner_id} and log group ID: {log_group_id}")
     except ValueError:
-        await message.reply("Invalid input. Use /addbot <bot> <owner_id> <log_group_id> format.")
+        await message.reply("Invalid input. Use /addbot [bot] [owner_id] [log_group_id] format.")
 
         
 # Add command handler to remove bots from the list
