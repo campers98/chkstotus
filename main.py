@@ -169,9 +169,9 @@ async def main_pratheek():
             xxx_pratheek = "📊 | 𝗟𝗜𝗩𝗘 𝗕𝗢𝗧 𝗦𝗧𝗔𝗧𝗨𝗦"
 
             # Loop through BOT_OWNERS_AND_LOGS to check the status of each bot
-            for bot in BOT_OWNERS_AND_LOGS:
+            for bot, info in BOT_OWNERS_AND_LOGS.items():
                 try:
-                    ok = await app.get_users(f"@{bot}")
+                    ok = await app.get_users(bot)
                     zzz_pratheek = app.get_chat_history(bot, limit=1)
                     async for ccc in zzz_pratheek:
                         bbb = ccc.id
@@ -189,6 +189,6 @@ async def main_pratheek():
             await app.edit_message_text(int(CHANNEL_ID), MESSAGE_ID, xxx_pratheek)
             print(f"Last checked on: {last_update}")
 
-            await asyncio.sleep(180)
+            await asyncio.sleep(120)
                         
 app.run(main_pratheek())
