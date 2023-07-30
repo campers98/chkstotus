@@ -62,7 +62,7 @@ async def update_and_send_status_message():
 
     time = datetime.datetime.now(pytz.timezone(f"{TIME_ZONE}"))
     last_update = time.strftime(f"%d %b %Y at %I:%M %p")
-    #xxx_pratheek += f"\n\n✔️ Last checked on: {last_update} ({TIME_ZONE})\n\n**♻️ Refreshes automatically**"
+    xxx_pratheek += f"\n\n✔️ Last checked on: {last_update} ({TIME_ZONE})\n\n**♻️ Refreshes automatically**"
 
     try:
         # Convert CHANNEL_ID and MESSAGE_ID to integers if provided as strings
@@ -165,10 +165,10 @@ async def main_pratheek():
         while True:
             print("Checking...")
             
-            # Call the update_and_send_status_message() function to update xxx_pratheek with initial status
-            await update_and_send_status_message()
+            # Reset the xxx_pratheek variable before checking the status of each bot
+            xxx_pratheek = "📊 | 𝗟𝗜𝗩𝗘 𝗕𝗢𝗧 𝗦𝗧𝗔𝗧𝗨𝗦"
 
-            # Loop through BOT_LIST to check the status of each bot
+            # Loop through BOT_OWNERS_AND_LOGS to check the status of each bot
             for bot in BOT_OWNERS_AND_LOGS:
                 try:
                     ok = await app.get_users(f"@{bot}")
