@@ -37,7 +37,7 @@ async def update_and_send_status_message():
     global xxx_pratheek
     xxx_pratheek = "📊 | 𝗟𝗜𝗩𝗘 𝗕𝗢𝗧 𝗦𝗧𝗔𝗧𝗨𝗦"
 
-    for bot in BOT_LIST:
+    for bot in BOT_OWNERS_AND_LOGS:
         try:
             # Send the /help command to the bot
             yyy_pratheek = await app.send_message(bot, "/help")
