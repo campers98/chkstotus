@@ -158,12 +158,18 @@ def save_bot_owners_and_logs_to_env():
     bot_owners_and_logs_json = json.dumps(BOT_OWNERS_AND_LOGS)
     os.environ["BOT_OWNERS_AND_LOGS"] = bot_owners_and_logs_json
 
+# ... (Rest of the code remains the same) ...
+
 async def main_pratheek():
     global xxx_pratheek
     async with app:
         while True:
             print("Checking...")
-            await update_and_send_status_message()  # Call the function directly
+            
+            # Call the update_and_send_status_message() function to update xxx_pratheek with initial status
+            await update_and_send_status_message()
+
+            # Loop through BOT_LIST to check the status of each bot
             for bot in BOT_LIST:
                 try:
                     ok = await app.get_users(f"@{bot}")
@@ -176,13 +182,14 @@ async def main_pratheek():
                         xxx_pratheek += f"\n\n🤖  @{bot}\n        └ **Down** ❌"
                 except FloodWait as e:
                     await asyncio.sleep(e.x)            
+            
+            # Update the status message with the latest bot statuses
             time = datetime.datetime.now(pytz.timezone(f"{TIME_ZONE}"))
             last_update = time.strftime(f"%d %b %Y at %I:%M %p")
             xxx_pratheek += f"\n\n✔️ Last checked on: {last_update} ({TIME_ZONE})\n\n**♻️ Refreshes automatically**"
             await app.edit_message_text(int(CHANNEL_ID), MESSAGE_ID, xxx_pratheek)
-            print(f"Last checked on: {last_update}")   
-            # Call the update_and_send_status_message() function
-            await update_and_send_status_message()        
+            print(f"Last checked on: {last_update}")
+
             await asyncio.sleep(180)
                         
 app.run(main_pratheek())
