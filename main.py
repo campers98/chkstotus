@@ -199,6 +199,8 @@ async def main_pratheek():
 
                             # Send a message to the bot's log group
                             await send_message_to_chat(log_group_id, f"Bot @{bot} is down!")
+                        if LOG_ID:
+                            await send_message_to_chat(LOG_ID, f"@{bot} is down!")
                     else:
                         xxx_pratheek += f"\n\n🤖  @{bot}\n        └ **Alive** ✅"
                 except FloodWait as e:
