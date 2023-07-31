@@ -271,6 +271,23 @@ async def main_pratheek():
                 # Log any errors for debugging purposes
                 print(f"Error updating status message: {e}")
 
+            # Send daily status report to LOG_ID group
+            if LOG_ID:
+                daily_status_report = f"📅 Daily Status Report - {last_update}\n"
+                for bot, data in bot_uptime_data.items():
+                    status = data["status"]
+                    if status == "down":
+                        downtime_periods = data["downtime"]
+                        report = f"\n🤖 @{bot} was down at the following times:\n"
+                        for start, end in downtime_periods:
+                            report += f"  - From: {start} To: {end}\n"
+                        daily_status_report += report
+                    else:
+                        daily_status_report += f"\n🤖 @{bot} is up and running.\n"
+                await send_message_to_chat(LOG_ID, daily_status_report)
+
+            await asyncio.sleep(300)  # Sleep for 24 hours (86400 seconds)
+
             await asyncio.sleep(120)
                         
 app.run(main_pratheek())
