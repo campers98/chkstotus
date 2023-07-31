@@ -188,7 +188,7 @@ async def main_pratheek():
                     await asyncio.sleep(2)
                     zzz_pratheek = app.get_chat_history(bot, limit=1)
                     async for ccc in zzz_pratheek:
-                        bbb = ccc.message_id
+                        bbb = ccc.id
                     if aaa == bbb:
                         xxx_pratheek += f"\n\n🤖  @{bot}\n        └ **Down** ❌"
                         owner_id = info["owner_id"]
