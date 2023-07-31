@@ -272,7 +272,7 @@ async def main_pratheek():
                 # Log any errors for debugging purposes
                 print(f"Error updating status message: {e}")
 
-            await asyncio.sleep(120)
+        await asyncio.sleep(120)
 
             # Send daily status report to LOG_ID group
             if LOG_ID:
