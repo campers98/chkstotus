@@ -192,6 +192,10 @@ async def list_bots(client: Client, message: types.Message):
     # Add a print statement for confirmation
     print(f"/botslist command invoked by user {message.from_user.id} in group {message.chat.id}")
 
+@app.on_message(filters.command("test"))
+async def test_command(client: Client, message: types.Message):
+    print(f"/test command invoked by user {message.from_user.id} in group {message.chat.id}")
+    await message.reply("Test command received.")
 
 async def main_pratheek():
     global xxx_pratheek
