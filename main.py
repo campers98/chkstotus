@@ -184,26 +184,43 @@ async def main_pratheek():
             for bot, info in BOT_OWNERS_AND_LOGS.items():
                 try:
                     yyy_pratheek = await app.send_message(bot, "/help")
-                    aaa = yyy_pratheek.id
+                    aaa = yyy_pratheek.message_id
                     await asyncio.sleep(2)
-                    zzz_pratheek = app.get_chat_history(bot, limit = 1)
+                    zzz_pratheek = app.get_chat_history(bot, limit=1)
                     async for ccc in zzz_pratheek:
-                        bbb = ccc.id
+                        bbb = ccc.message_id
                     if aaa == bbb:
-                         xxx_pratheek += f"\n\n🤖  @{bot}\n        └ **Down** ❌"                            
-                         await app.read_chat_history(bot)
+                        xxx_pratheek += f"\n\n🤖  @{bot}\n        └ **Down** ❌"
+                        owner_id = info["owner_id"]
+                        log_group_id = info["log_group_id"]
+                        if owner_id and log_group_id:
+                            # Send a message to the bot's owner
+                            await send_message_to_chat(owner_id, f"Your bot @{bot} is down!")
+
+                            # Send a message to the bot's log group
+                            await send_message_to_chat(log_group_id, f"Bot @{bot} is down!")
                     else:
                         xxx_pratheek += f"\n\n🤖  @{bot}\n        └ **Alive** ✅"
-                        await app.read_chat_history(bot)
                 except FloodWait as e:
-                    await asyncio.sleep(e.x)            
-            
-            # Update the status message with the latest bot statuses
+                    await asyncio.sleep(e.x)
+                except Exception as e:
+                    print(f"Error checking bot status for {bot}: {e}")
+
             time = datetime.datetime.now(pytz.timezone(f"{TIME_ZONE}"))
             last_update = time.strftime(f"%d %b %Y at %I:%M %p")
             xxx_pratheek += f"\n\n✔️ Last checked on: {last_update} ({TIME_ZONE})\n\n**♻️ Refreshes automatically**"
-            await app.edit_message_text(int(CHANNEL_ID), MESSAGE_ID, xxx_pratheek)
-            print(f"Last checked on: {last_update}")
+            
+            try:
+                # Convert CHANNEL_ID and MESSAGE_ID to integers if provided as strings
+                channel_id_int = int(CHANNEL_ID)
+                message_id_int = int(MESSAGE_ID)
+                
+                # Update the status message in the channel
+                await app.edit_message_text(channel_id_int, message_id_int, xxx_pratheek)
+                print(f"Last checked on: {last_update}")
+            except Exception as e:
+                # Log any errors for debugging purposes
+                print(f"Error updating status message: {e}")
 
             await asyncio.sleep(120)
                         
