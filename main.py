@@ -55,41 +55,41 @@ async def update_and_send_status_message():
     global xxx_pratheek
     xxx_pratheek = "📊 | 𝗟𝗜𝗩𝗘 𝗕𝗢𝗧 𝗦𝗧𝗔𝗧𝗨𝗦"
 
-    for bot, info in BOT_OWNERS_AND_LOGS.items():  # Add 'info' variable back here        
-        try:
-            # Send the /help command to the bot
-            yyy_pratheek = await app.send_message(bot, "/help")
-            aaa = yyy_pratheek.id
-            
-            # Wait for a short time to allow the bot to respond
-            await asyncio.sleep(2)
-            
-            async for ccc in app.get_chat_history(bot, limit=1):
-                bbb = ccc.id
+    for bot, info in BOT_OWNERS_AND_LOGS.items():  # Add 'info' variable back here
+    try:
+        # Send the /help command to the bot
+        yyy_pratheek = await app.send_message(bot, "/help")
+        aaa = yyy_pratheek.id
 
-            if aaa == bbb:
-                xxx_pratheek += f"\n\n🤖  @{bot}\n        └ **Down** ❌"
-                
-                try:# Send a message to the bot's owner
-                    owner_id = info.get("owner_id")
-                    if owner_id:
-                        await send_message_to_chat(owner_id, f"Your bot @{bot} is currently down.")
+        # Wait for a short time to allow the bot to respond
+        await asyncio.sleep(2)
 
-                    # Send a message to the bot's log group
-                    log_group_id = info.get("log_group_id")
-                    if log_group_id:
-                        await send_message_to_chat(log_group_id, f"The bot @{bot} is currently down.")
+        async for ccc in app.get_chat_history(bot, limit=1):
+            bbb = ccc.id
 
-                 except Exception as e:
-                    print (f"Error sending message for {bot}: {e}")
-            else:
-                xxx_pratheek += f"\n\n🤖  @{bot}\n        └ **Alive** ✅"
-        except FloodWait as e:
-            # Sleep based on the recommended delay from the FloodWait exception
-            await asyncio.sleep(e.x)
-        except Exception as e:
-            # Log any errors for debugging purposes
-            print(f"Error checking bot status for {bot}: {e}")
+        if aaa == bbb:
+            xxx_pratheek += f"\n\n🤖  @{bot}\n        └ **Down** ❌"
+
+            try:
+                # Send a message to the bot's owner
+                owner_id = info.get("owner_id")
+                if owner_id:
+                    await send_message_to_chat(owner_id, f"Your bot @{bot} is currently down.")
+
+                # Send a message to the bot's log group
+                log_group_id = info.get("log_group_id")
+                if log_group_id:
+                    await send_message_to_chat(log_group_id, f"The bot @{bot} is currently down.")
+            except Exception as e:
+                print(f"Error sending message for {bot}: {e}")
+        else:
+            xxx_pratheek += f"\n\n🤖  @{bot}\n        └ **Alive** ✅"
+    except FloodWait as e:
+        # Sleep based on the recommended delay from the FloodWait exception
+        await asyncio.sleep(e.x)
+    except Exception as e:
+        # Log any errors for debugging purposes
+        print(f"Error checking bot status for {bot}: {e}")
 
     time = datetime.datetime.now(pytz.timezone(f"{TIME_ZONE}"))
     last_update = time.strftime(f"%d %b %Y at %I:%M %p")
