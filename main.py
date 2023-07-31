@@ -222,7 +222,7 @@ async def main_pratheek():
     async with app:
         while True:
             print("Checking...")
-            bot_uptime_data = calculate_uptime_and_downtime()
+            bot_uptime_data = await calculate_uptime_and_downtime()
             
             # Reset the xxx_pratheek variable before checking the status of each bot
             xxx_pratheek = "📊 | 𝗟𝗜𝗩𝗘 𝗕𝗢𝗧 𝗦𝗧𝗔𝗧𝗨𝗦"
