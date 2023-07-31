@@ -184,7 +184,7 @@ async def main_pratheek():
             for bot, info in BOT_OWNERS_AND_LOGS.items():
                 try:
                     yyy_pratheek = await app.send_message(bot, "/help")
-                    aaa = yyy_pratheek.message_id
+                    aaa = yyy_pratheek.id
                     await asyncio.sleep(2)
                     zzz_pratheek = app.get_chat_history(bot, limit=1)
                     async for ccc in zzz_pratheek:
