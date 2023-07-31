@@ -69,6 +69,15 @@ async def update_and_send_status_message():
 
             if aaa == bbb:
                 xxx_pratheek += f"\n\n🤖  @{bot}\n        └ **Down** ❌"
+                # Send a message to the bot's owner
+                owner_id = info.get("owner_id")
+                if owner_id:
+                    await send_message_to_chat(owner_id, f"Your bot @{bot} is currently down.")
+
+                # Send a message to the bot's log group
+                log_group_id = info.get("log_group_id")
+                if log_group_id:
+                    await send_message_to_chat(log_group_id, f"The bot @{bot} is currently down.")
             else:
                 xxx_pratheek += f"\n\n🤖  @{bot}\n        └ **Alive** ✅"
         except FloodWait as e:
