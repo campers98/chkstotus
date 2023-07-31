@@ -56,6 +56,9 @@ async def update_and_send_status_message():
     xxx_pratheek = "📊 | 𝗟𝗜𝗩𝗘 𝗕𝗢𝗧 𝗦𝗧𝗔𝗧𝗨𝗦"
 
     for bot, info in BOT_OWNERS_AND_LOGS.items():
+        owner_id = info["owner_id"]
+        log_group_id = info["log_group_id"]
+        print(f"Bot: {bot}, Owner ID: {owner_id}, Log Group ID: {log_group_id}")
         try:
             # Send the /help command to the bot
             yyy_pratheek = await app.send_message(bot, "/help")
