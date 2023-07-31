@@ -139,8 +139,8 @@ async def add_bot_handler(client: Client, message: types.Message):
         # Reply with a success message
         await message.reply(f"Added {bot} with owner ID: {owner_id} and log group ID: {log_group_id}")
     except ValueError:
-        await message.reply("Invalid input. Use /addbot <bot> <owner_id> <log_group_id> format.")
-    print("xxx_pratheek after adding the bot:", xxx_pratheek)
+        await message.reply("Invalid input. Use /addbot `bot` `owner_id` `log_group_id` format.")
+    print("Status message after adding the bot:", xxx_pratheek)
         
 # Add command handler to remove bots from the list
 @app.on_message(filters.command("removebot") & filters.chat(LOG_ID) & filters.group)
