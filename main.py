@@ -171,6 +171,25 @@ async def remove_bot_handler(client: Client, message: types.Message):
     except ValueError:
         await message.reply("Invalid input. Use `/removebot bot_name` format.")
 
+# Command handler to list all the bots and their details
+@app.on_message(filters.command("botslist") & filters.chat(LOG_ID) & filters.group)
+async def list_bots(client: Client, message: types.Message):
+    if not message.from_user.id in BOT_ADMIN_IDS:
+        await message.reply("You are not authorized to access the bots list.")
+        return
+
+    if not BOT_OWNERS_AND_LOGS:
+        await message.reply("No bots have been added to the list yet.")
+        return
+
+    response = "**List of Bots and their Details:**\n"
+    for bot, info in BOT_OWNERS_AND_LOGS.items():
+        owner_id = info.get("owner_id", "Not provided")
+        log_group_id = info.get("log_group_id", "Not provided")
+        response += f"\nBot: {bot}\nOwner ID: {owner_id}\nLog Group ID: {log_group_id}\n"
+
+    await message.reply(response)
+
 async def main_pratheek():
     global xxx_pratheek
     async with app:
