@@ -204,10 +204,10 @@ async def calculate_uptime_and_downtime():
     for bot, info in BOT_OWNERS_AND_LOGS.items():
         try:
             yyy_pratheek = await app.send_message(bot, "/help")
-            aaa = yyy_pratheek.message_id
+            aaa = yyy_pratheek.id
             await asyncio.sleep(2)
             zzz_pratheek = [ccc async for ccc in app.get_chat_history(bot, limit=1)]  # Collect items as a list
-            bbb = zzz_pratheek[0].message_id if zzz_pratheek else None
+            bbb = zzz_pratheek[0].id if zzz_pratheek else None
             if aaa == bbb:
                 bot_uptime_data[bot] = {"status": "down", "downtime": []}
             else:
