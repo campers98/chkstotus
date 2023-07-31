@@ -32,6 +32,24 @@ BOT_OWNERS_AND_LOGS = {
 # Global variable to hold the status message
 xxx_pratheek = ""
 
+# Function to load bot owners and logs from a JSON file
+def load_bot_owners_and_logs_from_file(filename):
+    try:
+        with open(filename, "r") as file:
+            data = json.load(file)
+            return data
+    except FileNotFoundError:
+        return {}
+
+# Function to save bot owners and logs to a JSON file
+def save_bot_owners_and_logs_to_file(filename, data):
+    with open(filename, "w") as file:
+        json.dump(data, file, indent=4)
+
+# Load BOT_OWNERS_AND_LOGS data from the JSON file
+BOT_OWNERS_AND_LOGS_FILE = "bot_owners_and_logs.json"
+BOT_OWNERS_AND_LOGS = load_bot_owners_and_logs_from_file(BOT_OWNERS_AND_LOGS_FILE)
+
 # Function to update the status message and send it to the channel
 async def update_and_send_status_message():
     global xxx_pratheek
@@ -109,8 +127,8 @@ async def add_bot_handler(client: Client, message: types.Message):
         # Update the BOT_OWNERS_AND_LOGS dictionary
         BOT_OWNERS_AND_LOGS[bot] = {"owner_id": owner_id, "log_group_id": log_group_id}
 
-        # Save the updated dictionary to environment variables
-        save_bot_owners_and_logs_to_env()
+        # Save the updated dictionary to the JSON file
+        save_bot_owners_and_logs_to_file(BOT_OWNERS_AND_LOGS_FILE, BOT_OWNERS_AND_LOGS)
 
         # Update the status message with the newly added bot
         xxx_pratheek += f"\n\n🤖  @{bot}\n        └ **Down** ❌"  # Assume the bot is down initially
@@ -140,8 +158,9 @@ async def remove_bot_handler(client: Client, message: types.Message):
             # Remove the bot from the dictionary
             BOT_OWNERS_AND_LOGS.pop(bot)
 
-            # Save the updated dictionary to environment variables
-            save_bot_owners_and_logs_to_env()
+            # Save the updated dictionary to the JSON file
+            save_bot_owners_and_logs_to_file(BOT_OWNERS_AND_LOGS_FILE, BOT_OWNERS_AND_LOGS)
+
 
             # Update the status message and send it to the channel
             await update_and_send_status_message()
@@ -151,11 +170,6 @@ async def remove_bot_handler(client: Client, message: types.Message):
             await message.reply(f"The bot '{bot}' does not exist in the list.")
     except ValueError:
         await message.reply("Invalid input. Use /removebot <bot> format.")
-
-# Helper function to save the updated BOT_OWNERS_AND_LOGS dictionary to environment variables
-def save_bot_owners_and_logs_to_env():
-    bot_owners_and_logs_json = json.dumps(BOT_OWNERS_AND_LOGS)
-    os.environ["BOT_OWNERS_AND_LOGS"] = bot_owners_and_logs_json
 
 async def main_pratheek():
     global xxx_pratheek
