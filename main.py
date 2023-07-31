@@ -287,7 +287,7 @@ async def main_pratheek():
                         daily_status_report += f"\n🤖 @{bot} is up and running.\n"
                 await send_message_to_chat(LOG_ID, daily_status_report)
 
-            await asyncio.sleep(90)  # Sleep for 24 hours (86400 seconds)
+            await asyncio.sleep(300)  # Sleep for 24 hours (86400 seconds)
 
             #await asyncio.sleep(120)
                         
