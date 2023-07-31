@@ -174,6 +174,7 @@ async def remove_bot_handler(client: Client, message: types.Message):
 # Command handler to list all the bots and their details
 @app.on_message(filters.command("botslist") & filters.chat(LOG_ID) & filters.group)
 async def list_bots(client: Client, message: types.Message):
+    print("botslist_handler called!")  # Add this line to check if the function is called
     if not message.from_user.id in BOT_ADMIN_IDS:
         await message.reply("You are not authorized to access the bots list.")
         return
