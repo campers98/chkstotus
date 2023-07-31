@@ -23,10 +23,7 @@ BOT_ADMIN_IDS = [int(i.strip()) for i in os.getenv("BOT_ADMIN_IDS").split(' ')]
 LOG_ID = int(os.getenv("LOG_ID"))
 
 # Dictionary to store bot owner and log group associations
-BOT_OWNERS_AND_LOGS = {
-    #"Divu1_bot": {"owner_id": 5276467211, "log_group_id": -1001686570455}, # Add more bots and their corresponding owner_id and log_group_id
-    #"Isai_mazhai_bot": {"owner_id": 655594746, "log_group_id": -1001975251757}, # Add more bots and their corresponding owner_id and log_group_id
-    #"common": {"log_group_id": -1001600523208},  # Add the common log group ID here    
+BOT_OWNERS_AND_LOGS = {       
 }
 
 # Global variable to hold the status message
@@ -103,8 +100,7 @@ async def send_message_to_chat(chat_id, message):
 
 # Add a command handler to dynamically add bots and their owner IDs and log group IDs
 @app.on_message(filters.command("addbot") & filters.chat(LOG_ID) & filters.group)
-async def add_bot_handler(client: Client, message: types.Message):
-    print("add_bot_handler called!")  # Add this line to check if the function is called
+async def add_bot_handler(client: Client, message: types.Message):    
     global xxx_pratheek  # Define the global variable
     
     if not message.from_user.id in BOT_ADMIN_IDS:
@@ -160,7 +156,6 @@ async def remove_bot_handler(client: Client, message: types.Message):
 
             # Save the updated dictionary to the JSON file
             save_bot_owners_and_logs_to_file(BOT_OWNERS_AND_LOGS_FILE, BOT_OWNERS_AND_LOGS)
-
 
             # Update the status message and send it to the channel
             await update_and_send_status_message()
