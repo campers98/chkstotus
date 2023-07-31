@@ -169,7 +169,7 @@ async def remove_bot_handler(client: Client, message: types.Message):
         else:
             await message.reply(f"The bot '{bot}' does not exist in the list.")
     except ValueError:
-        await message.reply("Invalid input. Use /removebot <bot> format.")
+        await message.reply("Invalid input. Use `/removebot bot_name` format.")
 
 async def main_pratheek():
     global xxx_pratheek
