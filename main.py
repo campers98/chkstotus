@@ -67,9 +67,9 @@ async def update_and_send_status_message():
             async for ccc in app.get_chat_history(bot, limit=1):
                 bbb = ccc.id
 
-            if aaa == bbb:
-                xxx_pratheek += f"\n\n🤖  @{bot}\n        └ **Down** ❌"
+            if aaa == bbb:                
                 try:
+                    xxx_pratheek += f"\n\n🤖  @{bot}\n        └ **Down** ❌"
                     # Send a message to the bot's owner
                     owner_id = info.get("owner_id")
                     if owner_id:
