@@ -199,7 +199,7 @@ async def test_command(client: Client, message: types.Message):
     await message.reply("Test command received.")
 
 # Function to calculate the uptime and downtime of each bot
-def calculate_uptime_and_downtime():
+async def calculate_uptime_and_downtime():
     bot_uptime_data = {}
     for bot, info in BOT_OWNERS_AND_LOGS.items():
         try:
