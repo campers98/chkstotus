@@ -189,6 +189,9 @@ async def list_bots(client: Client, message: types.Message):
         response += f"\nBot: {bot}\nOwner ID: {owner_id}\nLog Group ID: {log_group_id}\n"
 
     await message.reply(response)
+    # Add a print statement for confirmation
+    print(f"/botslist command invoked by user {message.from_user.id} in group {message.chat.id}")
+
 
 async def main_pratheek():
     global xxx_pratheek
