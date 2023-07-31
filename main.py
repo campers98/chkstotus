@@ -198,11 +198,31 @@ async def test_command(client: Client, message: types.Message):
     print(f"/test command invoked by user {message.from_user.id} in group {message.chat.id}")
     await message.reply("Test command received.")
 
+# Function to calculate the uptime and downtime of each bot
+def calculate_uptime_and_downtime():
+    bot_uptime_data = {}
+    for bot, info in BOT_OWNERS_AND_LOGS.items():
+        try:
+            yyy_pratheek = app.send_message(bot, "/help")
+            aaa = yyy_pratheek.id
+            asyncio.sleep(2)
+            zzz_pratheek = app.get_chat_history(bot, limit=1)
+            for ccc in zzz_pratheek:
+                bbb = ccc.id
+            if aaa == bbb:
+                bot_uptime_data[bot] = {"status": "down", "downtime": []}
+            else:
+                bot_uptime_data[bot] = {"status": "up", "uptime": []}
+        except Exception as e:
+            print(f"Error checking bot status for {bot}: {e}")
+    return bot_uptime_data
+
 async def main_pratheek():
     global xxx_pratheek
     async with app:
         while True:
             print("Checking...")
+            bot_uptime_data = calculate_uptime_and_downtime()
             
             # Reset the xxx_pratheek variable before checking the status of each bot
             xxx_pratheek = "📊 | 𝗟𝗜𝗩𝗘 𝗕𝗢𝗧 𝗦𝗧𝗔𝗧𝗨𝗦"
