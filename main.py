@@ -50,7 +50,7 @@ BOT_OWNERS_AND_LOGS = load_bot_owners_and_logs_from_file(BOT_OWNERS_AND_LOGS_FIL
 # Function to update the status message and send it to the channel
 async def update_and_send_status_message():
     global xxx_pratheek
-    xxx_pratheek = "📊 | 𝗟𝗜𝗩𝗘 𝗕𝗢𝗧 𝗦𝗧𝗔𝗧𝗨𝗦"
+    xxx_pratheek = "】★ | ▄︻デ ᑗŇƗV€ŘŞ€═一【 Ⴆσƚs • ⃤• ƗŇ₣Ø 】 | ★【"
 
     for bot in BOT_OWNERS_AND_LOGS:
         try:
@@ -65,9 +65,9 @@ async def update_and_send_status_message():
                 bbb = ccc.id
 
             if aaa == bbb:
-                xxx_pratheek += f"\n\n🤖  @{bot}\n        └ **Down** ❌"
+                xxx_pratheek += f"\n\n🤖  @{bot}\n        ⇃➫ **─═ 🅒🅛🅞🅢🅔 ═─** 💔"
             else:
-                xxx_pratheek += f"\n\n🤖  @{bot}\n        └ **Alive** ✅"
+                xxx_pratheek += f"\n\n🤖  @{bot}\n        ⇃➫ **↬【 ƠƤЄƝ 】↫**  📂"
         except FloodWait as e:
             # Sleep based on the recommended delay from the FloodWait exception
             await asyncio.sleep(e.x)
@@ -77,7 +77,7 @@ async def update_and_send_status_message():
 
     time = datetime.datetime.now(pytz.timezone(f"{TIME_ZONE}"))
     last_update = time.strftime(f"%d %b %Y at %I:%M %p")
-    xxx_pratheek += f"\n\n✔️ Last checked on: {last_update} ({TIME_ZONE})\n\n**♻️ Refreshes automatically**"
+    xxx_pratheek += f"\n\n🆗🧘‍♂️ Fi͠n͠a͠l͠ ͠Up͠d͠a͠t͠i͠o͠n͠ ͠oN͠ : {last_update} ({TIME_ZONE})\n\n**🥶 🇷‌🇪‌🇧‌🇴‌🇴‌🇹‌🇸‌ 🇪‌🇻‌🇪‌🇷‌🇾‌ 1̳2̳0̳  🇸‌🇪‌🇨‌**"
 
     try:
         # Convert CHANNEL_ID and MESSAGE_ID to integers if provided as strings
@@ -127,7 +127,7 @@ async def add_bot_handler(client: Client, message: types.Message):
         save_bot_owners_and_logs_to_file(BOT_OWNERS_AND_LOGS_FILE, BOT_OWNERS_AND_LOGS)
 
         # Update the status message with the newly added bot
-        xxx_pratheek += f"\n\n🤖  @{bot}\n        └ **Down** ❌"  # Assume the bot is down initially
+        xxx_pratheek += f"\n\n🤖  @{bot}\n        ⇃➫ **─═ 🅒🅛🅞🅢🅔 ═─** 💔"  # Assume the bot is down initially
 
         # Update the status message and send it to the channel
         await update_and_send_status_message()
@@ -200,7 +200,7 @@ async def main_pratheek():
             print("Checking...")
             
             # Reset the xxx_pratheek variable before checking the status of each bot
-            xxx_pratheek = "📊 | 𝗟𝗜𝗩𝗘 𝗕𝗢𝗧 𝗦𝗧𝗔𝗧𝗨𝗦"
+            xxx_pratheek = "】★ | ▄︻デ ᑗŇƗV€ŘŞ€═一【 Ⴆσƚs • ⃤• ƗŇ₣Ø 】 | ★【"
 
             # Loop through BOT_OWNERS_AND_LOGS to check the status of each bot
             for bot, info in BOT_OWNERS_AND_LOGS.items():
@@ -212,19 +212,19 @@ async def main_pratheek():
                     async for ccc in zzz_pratheek:
                         bbb = ccc.id
                     if aaa == bbb:
-                        xxx_pratheek += f"\n\n🤖  @{bot}\n        └ **Down** ❌"
+                        xxx_pratheek += f"\n\n🤖  @{bot}\n        ⇃➫ **─═ 🅒🅛🅞🅢🅔 ═─** 💔"
                         owner_id = info["owner_id"]
                         log_group_id = info["log_group_id"]
                         if owner_id and log_group_id:
                             # Send a message to the bot's owner
-                            await send_message_to_chat(owner_id, f"Your bot @{bot} is down!")
+                            await send_message_to_chat(owner_id, f"✪ 🅰🅻🅴🆁🆃 ✪ 𝓛𝓮𝔂 𝐢𝐧𝐠𝐚 𝐯𝐚𝐧𝐠𝐚 @{bot} 𝘾𝙡𝙤𝙨𝙚𝙙! 𝐎𝐝𝐢𝐲𝐚 𝐨𝐝𝐢𝐲𝐚")
 
                             # Send a message to the bot's log group
-                            await send_message_to_chat(log_group_id, f"Bot @{bot} is down!")
+                            await send_message_to_chat(log_group_id, f"✪ 🅰🅻🅴🆁🆃 ✪ 𝓛𝓮𝔂 𝐢𝐧𝐠𝐚 𝐯𝐚𝐧𝐠𝐚 @{bot} 𝘾𝙡𝙤𝙨𝙚𝙙!  𝐎𝐝𝐢𝐲𝐚 𝐨𝐝𝐢𝐲𝐚")
                         if LOG_ID:
                             await send_message_to_chat(LOG_ID, f"@{bot} is down!")
                     else:
-                        xxx_pratheek += f"\n\n🤖  @{bot}\n        └ **Alive** ✅"
+                        xxx_pratheek += f"\n\n🤖  @{bot}\n        ⇃➫ **↬【 ƠƤЄƝ 】↫**  📂"
                 except FloodWait as e:
                     await asyncio.sleep(e.x)
                 except Exception as e:
@@ -232,7 +232,7 @@ async def main_pratheek():
 
             time = datetime.datetime.now(pytz.timezone(f"{TIME_ZONE}"))
             last_update = time.strftime(f"%d %b %Y at %I:%M %p")
-            xxx_pratheek += f"\n\n✔️ Last checked on: {last_update} ({TIME_ZONE})\n\n**♻️ Refreshes automatically**"
+            xxx_pratheek += f"\n\n🆗🧘‍♂️ Fi͠n͠a͠l͠ ͠Up͠d͠a͠t͠i͠o͠n͠ ͠oN͠ : {last_update} ({TIME_ZONE})\n\n**🥶 🇷‌🇪‌🇧‌🇴‌🇴‌🇹‌🇸‌ 🇪‌🇻‌🇪‌🇷‌🇾‌ 1̳2̳0̳  🇸‌🇪‌🇨**"
             
             try:
                 # Convert CHANNEL_ID and MESSAGE_ID to integers if provided as strings
