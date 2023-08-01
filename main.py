@@ -226,8 +226,10 @@ async def main_univ():
                     else:
                         xxx_univ += f"\n\n🗯  @{bot}\n        ⇃➫ **↬【 ƠƤЄƝ 】↫**  📂"
                 except FloodWait as e:
+                    return False, f"Bot is down. Got FloodWait error. Waiting for {e.x} seconds."    
                     await asyncio.sleep(e.x)
                 except Exception as e:
+                    return False, f"Bot is down. Got an error: {e}"
                     print(f"Error checking bot status for {bot}: {e}")
 
             time = datetime.datetime.now(pytz.timezone(f"{TIME_ZONE}"))
