@@ -135,7 +135,7 @@ async def add_bot_handler(client: Client, message: types.Message):
         # Reply with a success message
         await message.reply(f"Added {bot} with owner ID: {owner_id} and log group ID: {log_group_id}")
     except ValueError:
-        await message.reply("Invalid input. Use `/addbot bot_name owner_id log_group_id` format.")
+        await message.reply("Invalid input. Use `/addbot bot_name owner_id log_group_id` format.\n\nExample: `/addbot Divu1_bot 5276467233 -1001686570489`")
     print("Status message after adding the bot:", xxx_univ)
         
 # Add command handler to remove bots from the list
@@ -164,7 +164,7 @@ async def remove_bot_handler(client: Client, message: types.Message):
         else:
             await message.reply(f"The bot '{bot}' does not exist in the list.")
     except ValueError:
-        await message.reply("Invalid input. Use `/removebot bot_name` format.")
+        await message.reply("Invalid input. Use `/removebot bot_name` format.\n\nExample: `/removebot Divu1_bot`")
 
 # Command handler to list all the bots and their details
 @app.on_message(filters.command("botslist") & filters.chat(LOG_ID) & filters.group)
