@@ -77,7 +77,7 @@ async def update_and_send_status_message():
 
     time = datetime.datetime.now(pytz.timezone(f"{TIME_ZONE}"))
     last_update = time.strftime(f"%d %b %Y at %I:%M %p")
-    xxx_univ += f"\n\n🆗🧘‍♂️ Fi͠n͠a͠l͠ ͠Up͠d͠a͠t͠i͠o͠n͠ ͠oN͠ : {last_update} ({TIME_ZONE})\n\n**🥶 🇷‌🇪‌🇧‌🇴‌🇴‌🇹‌🇸‌ 🇪‌🇻‌🇪‌🇷‌🇾‌\n                1̳2̳0̳  🇸‌🇪‌🇨**"
+    xxx_univ += f"\n\n🆗🧘‍♂️ Fi͠n͠a͠l͠ ͠Up͠d͠a͠t͠i͠o͠n͠ ͠oN͠ : {last_update} ({TIME_ZONE})\n\n**🥶 🇷‌🇪‌🇧‌🇴‌🇴‌🇹‌🇸‌ 🇪‌🇻‌🇪‌🇷‌🇾‌\n                  1̳2̳0̳  🇸‌🇪‌🇨**"
 
     try:
         # Convert CHANNEL_ID and MESSAGE_ID to integers if provided as strings
@@ -234,7 +234,7 @@ async def main_univ():
 
             time = datetime.datetime.now(pytz.timezone(f"{TIME_ZONE}"))
             last_update = time.strftime(f"%d %b %Y at %I:%M %p")
-            xxx_univ += f"\n\n🆗🧘‍♂️ Fi͠n͠a͠l͠ ͠Up͠d͠a͠t͠i͠o͠n͠ ͠oN͠ : {last_update} ({TIME_ZONE})\n\n**🥶 🇷‌🇪‌🇧‌🇴‌🇴‌🇹‌🇸‌ 🇪‌🇻‌🇪‌🇷‌🇾‌\n                1̳2̳0̳  🇸‌🇪‌🇨**"
+            xxx_univ += f"\n\n🆗🧘‍♂️ Fi͠n͠a͠l͠ ͠Up͠d͠a͠t͠i͠o͠n͠ ͠oN͠ : {last_update} ({TIME_ZONE})\n\n**🥶 🇷‌🇪‌🇧‌🇴‌🇴‌🇹‌🇸‌ 🇪‌🇻‌🇪‌🇷‌🇾‌\n                  1̳2̳0̳  🇸‌🇪‌🇨**"
             
             try:
                 # Convert CHANNEL_ID and MESSAGE_ID to integers if provided as strings
