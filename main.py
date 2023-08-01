@@ -10,7 +10,7 @@ import json
 load_dotenv()
 
 app = Client(
-    name = "botstatus_pratheek",
+    name = "botstatus_univ",
     api_id = int(os.getenv("API_ID")),
     api_hash = os.getenv("API_HASH"),
     session_string = os.getenv("STRING_SESSION")
@@ -27,7 +27,7 @@ BOT_OWNERS_AND_LOGS = {
 }
 
 # Global variable to hold the status message
-xxx_pratheek = ""
+xxx_univ = ""
 
 # Function to load bot owners and logs from a JSON file
 def load_bot_owners_and_logs_from_file(filename):
@@ -49,14 +49,14 @@ BOT_OWNERS_AND_LOGS = load_bot_owners_and_logs_from_file(BOT_OWNERS_AND_LOGS_FIL
 
 # Function to update the status message and send it to the channel
 async def update_and_send_status_message():
-    global xxx_pratheek
-    xxx_pratheek = "★ | ▄︻デ ᑗŇƗV€ŘŞ€ ✶ N͞e͞t͞w͞o͞r͞k͞s͞  ★ \n              | 【 Ⴆσƚs • ⃤• ƗŇ₣Ø 】 |"
+    global xxx_univ
+    xxx_univ = "★ | ▄︻デ ᑗŇƗV€ŘŞ€ ✶ N͞e͞t͞w͞o͞r͞k͞s͞  ★ \n              | 【 Ⴆσƚs • ⃤• ƗŇ₣Ø 】 |"
 
     for bot in BOT_OWNERS_AND_LOGS:
         try:
             # Send the /help command to the bot
-            yyy_pratheek = await app.send_message(bot, "/help")
-            aaa = yyy_pratheek.id
+            yyy_univ = await app.send_message(bot, "/help")
+            aaa = yyy_univ.id
             
             # Wait for a short time to allow the bot to respond
             await asyncio.sleep(2)
@@ -65,9 +65,9 @@ async def update_and_send_status_message():
                 bbb = ccc.id
 
             if aaa == bbb:
-                xxx_pratheek += f"\n\n🗯  @{bot}\n        ⇃➫ **─═ 🅒🅛🅞🅢🅔 ═─** 💔"
+                xxx_univ += f"\n\n🗯  @{bot}\n        ⇃➫ **─═ 🅒🅛🅞🅢🅔 ═─** 💔"
             else:
-                xxx_pratheek += f"\n\n🗯  @{bot}\n        ⇃➫ **↬【 ƠƤЄƝ 】↫**  📂"
+                xxx_univ += f"\n\n🗯  @{bot}\n        ⇃➫ **↬【 ƠƤЄƝ 】↫**  📂"
         except FloodWait as e:
             # Sleep based on the recommended delay from the FloodWait exception
             await asyncio.sleep(e.x)
@@ -77,7 +77,7 @@ async def update_and_send_status_message():
 
     time = datetime.datetime.now(pytz.timezone(f"{TIME_ZONE}"))
     last_update = time.strftime(f"%d %b %Y at %I:%M %p")
-    xxx_pratheek += f"\n\n🆗🧘‍♂️ Fi͠n͠a͠l͠ ͠Up͠d͠a͠t͠i͠o͠n͠ ͠oN͠ : {last_update} ({TIME_ZONE})\n\n**🥶 🇷‌🇪‌🇧‌🇴‌🇴‌🇹‌🇸‌ 🇪‌🇻‌🇪‌🇷‌🇾‌\n                1̳2̳0̳  🇸‌🇪‌🇨**"
+    xxx_univ += f"\n\n🆗🧘‍♂️ Fi͠n͠a͠l͠ ͠Up͠d͠a͠t͠i͠o͠n͠ ͠oN͠ : {last_update} ({TIME_ZONE})\n\n**🥶 🇷‌🇪‌🇧‌🇴‌🇴‌🇹‌🇸‌ 🇪‌🇻‌🇪‌🇷‌🇾‌\n                1̳2̳0̳  🇸‌🇪‌🇨**"
 
     try:
         # Convert CHANNEL_ID and MESSAGE_ID to integers if provided as strings
@@ -85,7 +85,7 @@ async def update_and_send_status_message():
         message_id_int = int(MESSAGE_ID)
         
         # Update the status message in the channel
-        await app.edit_message_text(channel_id_int, message_id_int, xxx_pratheek)
+        await app.edit_message_text(channel_id_int, message_id_int, xxx_univ)
         print(f"Last checked on: {last_update}")
     except Exception as e:
         # Log any errors for debugging purposes
@@ -101,7 +101,7 @@ async def send_message_to_chat(chat_id, message):
 # Add a command handler to dynamically add bots and their owner IDs and log group IDs
 @app.on_message(filters.command("addbot") & filters.chat(LOG_ID) & filters.group)
 async def add_bot_handler(client: Client, message: types.Message):    
-    global xxx_pratheek  # Define the global variable
+    global xxx_univ  # Define the global variable
     
     if not message.from_user.id in BOT_ADMIN_IDS:
         await message.reply("You are not authorized to add bots.")
@@ -127,7 +127,7 @@ async def add_bot_handler(client: Client, message: types.Message):
         save_bot_owners_and_logs_to_file(BOT_OWNERS_AND_LOGS_FILE, BOT_OWNERS_AND_LOGS)
 
         # Update the status message with the newly added bot
-        xxx_pratheek += f"\n\n🗯  @{bot}\n        ⇃➫ **─═ 🅒🅛🅞🅢🅔 ═─** 💔"  # Assume the bot is down initially
+        xxx_univ += f"\n\n🗯  @{bot}\n        ⇃➫ **─═ 🅒🅛🅞🅢🅔 ═─** 💔"  # Assume the bot is down initially
 
         # Update the status message and send it to the channel
         await update_and_send_status_message()
@@ -136,7 +136,7 @@ async def add_bot_handler(client: Client, message: types.Message):
         await message.reply(f"Added {bot} with owner ID: {owner_id} and log group ID: {log_group_id}")
     except ValueError:
         await message.reply("Invalid input. Use `/addbot bot_name owner_id log_group_id` format.")
-    print("Status message after adding the bot:", xxx_pratheek)
+    print("Status message after adding the bot:", xxx_univ)
         
 # Add command handler to remove bots from the list
 @app.on_message(filters.command("removebot") & filters.chat(LOG_ID) & filters.group)
@@ -193,26 +193,26 @@ async def test_command(client: Client, message: types.Message):
     print(f"/test command invoked by user {message.from_user.id} in group {message.chat.id}")
     await message.reply("Test command received.")
 
-async def main_pratheek():
-    global xxx_pratheek
+async def main_univ():
+    global xxx_univ
     async with app:
         while True:
             print("Checking...")
             
-            # Reset the xxx_pratheek variable before checking the status of each bot
-            xxx_pratheek = "★ | ▄︻デ ᑗŇƗV€ŘŞ€ ✶ N͞e͞t͞w͞o͞r͞k͞s͞  ★ \n              | 【 Ⴆσƚs • ⃤• ƗŇ₣Ø 】 |"
+            # Reset the xxx_univ variable before checking the status of each bot
+            xxx_univ = "★ | ▄︻デ ᑗŇƗV€ŘŞ€ ✶ N͞e͞t͞w͞o͞r͞k͞s͞  ★ \n              | 【 Ⴆσƚs • ⃤• ƗŇ₣Ø 】 |"
 
             # Loop through BOT_OWNERS_AND_LOGS to check the status of each bot
             for bot, info in BOT_OWNERS_AND_LOGS.items():
                 try:
-                    yyy_pratheek = await app.send_message(bot, "/help")
-                    aaa = yyy_pratheek.id
+                    yyy_univ = await app.send_message(bot, "/help")
+                    aaa = yyy_univ.id
                     await asyncio.sleep(2)
-                    zzz_pratheek = app.get_chat_history(bot, limit=1)
-                    async for ccc in zzz_pratheek:
+                    zzz_univ = app.get_chat_history(bot, limit=1)
+                    async for ccc in zzz_univ:
                         bbb = ccc.id
                     if aaa == bbb:
-                        xxx_pratheek += f"\n\n🗯  @{bot}\n        ⇃➫ **─═ 🅒🅛🅞🅢🅔 ═─** 💔"
+                        xxx_univ += f"\n\n🗯  @{bot}\n        ⇃➫ **─═ 🅒🅛🅞🅢🅔 ═─** 💔"
                         owner_id = info["owner_id"]
                         log_group_id = info["log_group_id"]
                         if owner_id and log_group_id:
@@ -224,7 +224,7 @@ async def main_pratheek():
                         if LOG_ID:
                             await send_message_to_chat(LOG_ID, f"@{bot} is down!")
                     else:
-                        xxx_pratheek += f"\n\n🗯  @{bot}\n        ⇃➫ **↬【 ƠƤЄƝ 】↫**  📂"
+                        xxx_univ += f"\n\n🗯  @{bot}\n        ⇃➫ **↬【 ƠƤЄƝ 】↫**  📂"
                 except FloodWait as e:
                     await asyncio.sleep(e.x)
                 except Exception as e:
@@ -232,7 +232,7 @@ async def main_pratheek():
 
             time = datetime.datetime.now(pytz.timezone(f"{TIME_ZONE}"))
             last_update = time.strftime(f"%d %b %Y at %I:%M %p")
-            xxx_pratheek += f"\n\n🆗🧘‍♂️ Fi͠n͠a͠l͠ ͠Up͠d͠a͠t͠i͠o͠n͠ ͠oN͠ : {last_update} ({TIME_ZONE})\n\n**🥶 🇷‌🇪‌🇧‌🇴‌🇴‌🇹‌🇸‌ 🇪‌🇻‌🇪‌🇷‌🇾‌\n                1̳2̳0̳  🇸‌🇪‌🇨**"
+            xxx_univ += f"\n\n🆗🧘‍♂️ Fi͠n͠a͠l͠ ͠Up͠d͠a͠t͠i͠o͠n͠ ͠oN͠ : {last_update} ({TIME_ZONE})\n\n**🥶 🇷‌🇪‌🇧‌🇴‌🇴‌🇹‌🇸‌ 🇪‌🇻‌🇪‌🇷‌🇾‌\n                1̳2̳0̳  🇸‌🇪‌🇨**"
             
             try:
                 # Convert CHANNEL_ID and MESSAGE_ID to integers if provided as strings
@@ -240,7 +240,7 @@ async def main_pratheek():
                 message_id_int = int(MESSAGE_ID)
                 
                 # Update the status message in the channel
-                await app.edit_message_text(channel_id_int, message_id_int, xxx_pratheek)
+                await app.edit_message_text(channel_id_int, message_id_int, xxx_univ)
                 print(f"Last checked on: {last_update}")
             except Exception as e:
                 # Log any errors for debugging purposes
@@ -248,4 +248,4 @@ async def main_pratheek():
 
             await asyncio.sleep(120)
                         
-app.run(main_pratheek())
+app.run(main_univ())
