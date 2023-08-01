@@ -182,7 +182,7 @@ async def list_bots(client: Client, message: types.Message):
     for bot, info in BOT_OWNERS_AND_LOGS.items():
         owner_id = info["owner_id"]  # Assuming owner_id is always present
         log_group_id = info["log_group_id"]  # Assuming log_group_id is always present
-        response += f"\nBot: {bot}\nOwner ID: {owner_id}\nLog Group ID: {log_group_id}\n"
+        response += f"\nBot: {bot}\nOwner ID: `{owner_id}`\nLog Group ID: `{log_group_id}`\n"
 
     await message.reply(response)
     # Add a print statement for confirmation
