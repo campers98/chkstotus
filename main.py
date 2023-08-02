@@ -76,7 +76,7 @@ async def update_and_send_status_message():
             print(f"Error checking bot status for {bot}: {e}")
 
     time = datetime.datetime.now(pytz.timezone(f"{TIME_ZONE}"))
-    last_update = time.strftime(f"%d %b %Y at %I:%M %p")
+    last_update = time.strftime(f"%d %b %Y at %I:%M:%S %p")
     xxx_univ += f"\n\n🆗🧘‍♂️ Fi͠n͠a͠l͠ ͠Up͠d͠a͠t͠i͠o͠n͠ ͠oN͠ : {last_update} ({TIME_ZONE})\n\n**🥶 🇷‌🇪‌🇧‌🇴‌🇴‌🇹‌🇸‌ 🇪‌🇻‌🇪‌🇷‌🇾‌\n                  1̳2̳0̳  🇸‌🇪‌🇨**"
 
     try:
@@ -233,7 +233,7 @@ async def main_univ():
                     print(f"Error checking bot status for {bot}: {e}")
 
             time = datetime.datetime.now(pytz.timezone(f"{TIME_ZONE}"))
-            last_update = time.strftime(f"%d %b %Y at %I:%M %p")
+            last_update = time.strftime(f"%d %b %Y at %I:%M:%S %p")
             xxx_univ += f"\n\n🆗🧘‍♂️ Fi͠n͠a͠l͠ ͠Up͠d͠a͠t͠i͠o͠n͠ ͠oN͠ : {last_update} ({TIME_ZONE})\n\n**🥶 🇷‌🇪‌🇧‌🇴‌🇴‌🇹‌🇸‌ 🇪‌🇻‌🇪‌🇷‌🇾‌\n                  1̳2̳0̳  🇸‌🇪‌🇨**"
             
             try:
