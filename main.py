@@ -59,7 +59,7 @@ async def update_and_send_status_message():
             aaa = yyy_univ.id
             
             # Wait for a short time to allow the bot to respond
-            await asyncio.sleep(2)
+            await asyncio.sleep(5)
             
             async for ccc in app.get_chat_history(bot, limit=1):
                 bbb = ccc.id
@@ -207,7 +207,7 @@ async def main_univ():
                 try:
                     yyy_univ = await app.send_message(bot, "/start")
                     aaa = yyy_univ.id
-                    await asyncio.sleep(2)
+                    await asyncio.sleep(5)
                     zzz_univ = app.get_chat_history(bot, limit=1)
                     async for ccc in zzz_univ:
                         bbb = ccc.id
