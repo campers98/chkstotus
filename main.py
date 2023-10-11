@@ -54,8 +54,8 @@ async def update_and_send_status_message():
 
     for bot in BOT_OWNERS_AND_LOGS:
         try:
-            # Send the /help command to the bot
-            yyy_univ = await app.send_message(bot, "/help")
+            # Send the /start command to the bot
+            yyy_univ = await app.send_message(bot, "/start")
             aaa = yyy_univ.id
             
             # Wait for a short time to allow the bot to respond
@@ -205,7 +205,7 @@ async def main_univ():
             # Loop through BOT_OWNERS_AND_LOGS to check the status of each bot
             for bot, info in BOT_OWNERS_AND_LOGS.items():
                 try:
-                    yyy_univ = await app.send_message(bot, "/help")
+                    yyy_univ = await app.send_message(bot, "/start")
                     aaa = yyy_univ.id
                     await asyncio.sleep(2)
                     zzz_univ = app.get_chat_history(bot, limit=1)
