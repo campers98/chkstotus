@@ -1,5 +1,3 @@
-#hie
-
 from pyrogram import Client, filters, types
 from pyrogram.errors import FloodWait
 import asyncio
@@ -12,21 +10,19 @@ import json
 load_dotenv()
 
 app = Client(
-    name = "botstatus_univ",
-    api_id = int(os.getenv("API_ID")),
-    api_hash = os.getenv("API_HASH"),
-    session_string = os.getenv("STRING_SESSION")
+    "botstatus_univ",
+    api_id=int(os.getenv("API_ID")),
+    api_hash=os.getenv("API_HASH"),
+    session_string=os.getenv("STRING_SESSION")
 )
 TIME_ZONE = os.getenv("TIME_ZONE")
-#BOT_LIST = [i.strip() for i in os.getenv("BOT_LIST").split(' ')]
 CHANNEL_ID = os.getenv("CHANNEL_ID")
 MESSAGE_ID = int(os.getenv("MESSAGE_ID"))
 BOT_ADMIN_IDS = [int(i.strip()) for i in os.getenv("BOT_ADMIN_IDS").split(' ')]
 LOG_ID = os.getenv("LOG_ID")
 
 # Dictionary to store bot owner and log group associations
-BOT_OWNERS_AND_LOGS = {       
-}
+BOT_OWNERS_AND_LOGS = {}
 
 # Global variable to hold the status message
 xxx_univ = ""
@@ -59,10 +55,10 @@ async def update_and_send_status_message():
             # Send the /start command to the bot
             yyy_univ = await app.send_message(bot, "/start")
             aaa = yyy_univ.id
-            
+
             # Wait for a short time to allow the bot to respond
             await asyncio.sleep(5)
-            
+
             async for ccc in app.get_chat_history(bot, limit=1):
                 bbb = ccc.id
 
@@ -72,7 +68,7 @@ async def update_and_send_status_message():
                 xxx_univ += f"\n\n🗯  @{bot}\n        ⇃➫ **↬【 ƠƤЄƝ 】↫**  📂"
         except FloodWait as e:
             # Sleep based on the recommended delay from the FloodWait exception
-            await asyncio.sleep(e.x)
+            await asyncio.sleep(e.value)
         except Exception as e:
             # Log any errors for debugging purposes
             print(f"Error checking bot status for {bot}: {e}")
@@ -85,7 +81,7 @@ async def update_and_send_status_message():
         # Convert CHANNEL_ID and MESSAGE_ID to integers if provided as strings
         channel_id_int = int(CHANNEL_ID)
         message_id_int = int(MESSAGE_ID)
-        
+
         # Update the status message in the channel
         await app.edit_message_text(channel_id_int, message_id_int, xxx_univ)
         print(f"Last checked on: {last_update}")
@@ -101,23 +97,23 @@ async def send_message_to_chat(chat_id, message):
             print(f"Failed to send message to {chat_id}: {e}")
 
 # Add a command handler to dynamically add bots and their owner IDs and log group IDs
-@app.on_message(filters.command("addbot") & filters.chat(LOG_ID) & filters.group)
-async def add_bot_handler(client: Client, message: types.Message):    
+@app.on_message(filters.command("addbot") & filters.chat(int(LOG_ID)) & filters.group)
+async def add_bot_handler(client: Client, message: types.Message):
     global xxx_univ  # Define the global variable
-    
+
     if not message.from_user.id in BOT_ADMIN_IDS:
         await message.reply("You are not authorized to add bots.")
         return
 
     try:
-        # Split the command into its arguments (bot, owner_id, log_group_id)        
+        # Split the command into its arguments (bot, owner_id, log_group_id)
         _, bot, owner_id, log_group_id = message.text.split(" ", 3)
 
         # Check if the bot already exists in the dictionary
         if bot in BOT_OWNERS_AND_LOGS:
             await message.reply(f"The bot '{bot}' already exists in the list.")
             return
-            
+
         # Convert owner_id and log_group_id to integers
         owner_id = int(owner_id)
         log_group_id = int(log_group_id)
@@ -139,9 +135,9 @@ async def add_bot_handler(client: Client, message: types.Message):
     except ValueError:
         await message.reply("Invalid input. Use `/addbot bot_name owner_id log_group_id` format.\n\nExample: `/addbot Divu1_bot 5276467233 -1001686570489`")
     print("Status message after adding the bot:", xxx_univ)
-        
+
 # Add command handler to remove bots from the list
-@app.on_message(filters.command("removebot") & filters.chat(LOG_ID) & filters.group)
+@app.on_message(filters.command("removebot") & filters.chat(int(LOG_ID)) & filters.group)
 async def remove_bot_handler(client: Client, message: types.Message):
     if not message.from_user.id in BOT_ADMIN_IDS:
         await message.reply("You are not authorized to remove bots.")
@@ -169,7 +165,7 @@ async def remove_bot_handler(client: Client, message: types.Message):
         await message.reply("Invalid input. Use `/removebot bot_name` format.\n\nExample: `/removebot Divu1_bot`")
 
 # Command handler to list all the bots and their details
-@app.on_message(filters.command("botslist") & filters.chat(LOG_ID) & filters.group)
+@app.on_message(filters.command("botslist") & filters.chat(int(LOG_ID)) & filters.group)
 async def list_bots(client: Client, message: types.Message):
     print("botslist_handler called!")  # Add this line to check if the function is called
     if not message.from_user.id in BOT_ADMIN_IDS:
@@ -200,7 +196,7 @@ async def main_univ():
     async with app:
         while True:
             print("Checking...")
-            
+
             # Reset the xxx_univ variable before checking the status of each bot
             xxx_univ = "★ | ▄︻デ ᑗŇƗV€ŘŞ€ ✶ N͞e͞t͞w͞o͞r͞k͞s͞  ★ \n              | 【 Ⴆσƚs • ⃤• ƗŇ₣Ø 】 |"
 
@@ -228,8 +224,8 @@ async def main_univ():
                     else:
                         xxx_univ += f"\n\n🗯  @{bot}\n        ⇃➫ **↬【 ƠƤЄƝ 】↫**  📂"
                 except FloodWait as e:
-                    return False, f"Bot is down. Got FloodWait error. Waiting for {e.x} seconds."    
-                    await asyncio.sleep(e.x)
+                    return False, f"Bot is down. Got FloodWait error. Waiting for {e.value} seconds."    
+                    await asyncio.sleep(e.value)
                 except Exception as e:
                     return False, f"Bot is down. Got an error: {e}"
                     print(f"Error checking bot status for {bot}: {e}")
@@ -237,12 +233,12 @@ async def main_univ():
             time = datetime.datetime.now(pytz.timezone(f"{TIME_ZONE}"))
             last_update = time.strftime(f"%d %b %Y at %I:%M:%S %p")
             xxx_univ += f"\n\n🆗🧘‍♂️ Fi͠n͠a͠l͠ ͠Up͠d͠a͠t͠i͠o͠n͠ ͠oN͠ : {last_update} ({TIME_ZONE})\n\n**🥶 🇷‌🇪‌🇧‌🇴‌🇴‌🇹‌🇸‌ 🇪‌🇻‌🇪‌🇷‌🇾‌\n                  1̳2̳0̳  🇸‌🇪‌🇨**"
-            
+
             try:
                 # Convert CHANNEL_ID and MESSAGE_ID to integers if provided as strings
                 channel_id_int = int(CHANNEL_ID)
                 message_id_int = int(MESSAGE_ID)
-                
+
                 # Update the status message in the channel
                 await app.edit_message_text(channel_id_int, message_id_int, xxx_univ)
                 print(f"Last checked on: {last_update}")
@@ -251,5 +247,5 @@ async def main_univ():
                 print(f"Error updating status message: {e}")
 
             await asyncio.sleep(120)
-                        
+
 app.run(main_univ())
