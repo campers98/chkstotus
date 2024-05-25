@@ -22,7 +22,7 @@ TIME_ZONE = os.getenv("TIME_ZONE")
 CHANNEL_ID = os.getenv("CHANNEL_ID")
 MESSAGE_ID = int(os.getenv("MESSAGE_ID"))
 BOT_ADMIN_IDS = [int(i.strip()) for i in os.getenv("BOT_ADMIN_IDS").split(' ')]
-LOG_ID = int(os.getenv("LOG_ID"))
+LOG_ID = os.getenv("LOG_ID")
 
 # Dictionary to store bot owner and log group associations
 BOT_OWNERS_AND_LOGS = {       
