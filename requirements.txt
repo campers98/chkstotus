@@ -1,4 +1,4 @@
-pyrogram==2.-.106
+pyrogram==2.1.106
 tgcrypto
 pytz==2021.3
 python-dotenv
